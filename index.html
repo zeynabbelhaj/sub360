@@ -12,6 +12,8 @@
 <helmet>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap">
 <style>
+.no-sb{scrollbar-width:none;-ms-overflow-style:none}
+.no-sb::-webkit-scrollbar{display:none}
 body{margin:0;background:#F8F6FD}
 a{color:#7B3FE4;text-decoration:none}
 button{font-family:inherit}
@@ -88,10 +90,14 @@ button{font-family:inherit}
 
   <!-- bandeau KPI -->
   <section aria-label="Indicateurs clés" style="display:flex;flex-direction:column;gap:18px;padding:20px 8px;border-radius:28px;background:rgba(255,255,255,0.6);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);position:relative">
-    <div role="group" aria-label="Filtrer par entité" style="display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;padding:4px 24px 8px">
+    <div onMouseEnter="{{measureFilters}}" style="position:relative">
+    <div id="filter-scroll" data-fscroll="1" class="no-sb" onScroll="{{measureFilters}}" role="group" aria-label="Filtrer par entité" style="display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;scroll-behavior:smooth;padding:4px 24px 8px">
       <sc-for list="{{filters}}" as="fl" hint-placeholder-count="6">
       <button type="button" aria-pressed="{{fl.pressed}}" onClick="{{fl.pick}}" style="{{fl.style}}">{{fl.label}}<span style="{{fl.badge}}">{{fl.count}}</span></button>
       </sc-for>
+    </div>
+      <button type="button" aria-label="Défiler vers la gauche" onClick="{{scrollFiltersLeft}}" style="{{arrowLeftStyle}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"></path></svg></button>
+      <button type="button" aria-label="Défiler vers la droite" onClick="{{scrollFiltersRight}}" style="{{arrowRightStyle}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></button>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px 0;justify-content:space-between;align-items:center">
     <div style="display:flex;align-items:center;gap:14px;padding:0 24px">
@@ -317,11 +323,27 @@ button{font-family:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#7B3FE4","options":["#7B3FE4","#0E7C86","#C2410C","#1D4ED8"]},"accent2":{"editor":"color","default":"#35D3F2"},"accent3":{"editor":"color","default":"#35F0C0"},"$preview":{"width":1440,"height":960}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { view: 'tiles', filter: 'all', chartEntity: 'Avaliance France', sel: 11, tableSoc: 'all', tipPartial: false, openMenu: 'abo' }; }
+  constructor(props) { super(props); this.state = { view: 'tiles', filter: 'all', chartEntity: 'Avaliance France', sel: 11, tableSoc: 'all', tipPartial: false, openMenu: 'abo', canL: false, canR: true }; }
   rgba(hex, a) {
     const h = (hex || '#000000').replace('#', '');
     const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16);
     return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+  }
+  filterEl(e) {
+    let el = null;
+    try { el = (e && e.currentTarget && e.currentTarget.parentElement && e.currentTarget.parentElement.querySelector('[data-fscroll]')) || null; } catch (x) {}
+    return el || document.getElementById('filter-scroll');
+  }
+  measure(el) {
+    if (!el) return;
+    const l = el.scrollLeft > 4;
+    const r = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
+    if (l !== this.state.canL || r !== this.state.canR) this.setState({ canL: l, canR: r });
+  }
+  componentDidMount() {
+    const run = () => this.measure(document.getElementById('filter-scroll'));
+    setTimeout(run, 50);
+    try { window.addEventListener('resize', run); } catch (x) {}
   }
   renderVals() {
     const accent = this.props.accent ?? '#7B3FE4';
@@ -510,6 +532,11 @@ class Component extends DCLogic {
       segList: isTiles ? off : on,
       tipPartial: !!this.state.tipPartial,
       toggleTip: () => this.setState({ tipPartial: !this.state.tipPartial }),
+      measureFilters: (e) => this.measure(this.filterEl(e)),
+      scrollFiltersLeft: (e) => { const el = this.filterEl(e); if (el) { el.scrollBy({ left: -280, behavior: 'smooth' }); setTimeout(() => this.measure(el), 350); } },
+      scrollFiltersRight: (e) => { const el = this.filterEl(e); if (el) { el.scrollBy({ left: 280, behavior: 'smooth' }); setTimeout(() => this.measure(el), 350); } },
+      arrowLeftStyle: 'position:absolute;top:calc(50% - 6px);transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:#FFFFFF;border:1px solid rgba(255,255,255,0.9);box-shadow:0 8px 24px rgba(123,63,228,0.08),0 4px 14px rgba(123,63,228,0.06);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:opacity .2s;' + 'left:6px;' + (this.state.canL ? 'opacity:1;' : 'opacity:0;pointer-events:none;'),
+      arrowRightStyle: 'position:absolute;top:calc(50% - 6px);transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:#FFFFFF;border:1px solid rgba(255,255,255,0.9);box-shadow:0 8px 24px rgba(123,63,228,0.08),0 4px 14px rgba(123,63,228,0.06);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:opacity .2s;' + 'right:6px;' + (this.state.canR ? 'opacity:1;' : 'opacity:0;pointer-events:none;'),
       showTiles: () => this.setState({ view: 'tiles' }),
       showList: () => this.setState({ view: 'list' }),
       accent2: a2,
