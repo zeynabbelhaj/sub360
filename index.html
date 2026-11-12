@@ -28,17 +28,18 @@ button{font-family:inherit}
 <div aria-hidden="true" style="position:absolute;left:40px;bottom:-120px;width:360px;height:360px;border-radius:50%;background:{{accent3Glow}};filter:blur(110px);pointer-events:none"></div>
 
 <!-- SIDEBAR -->
-<aside style="position: sticky; top: 24px; align-self: flex-start; flex: 0 0 280px; box-sizing: border-box; padding: 32px 20px; border-radius: 32px; background: rgba(255,255,255,0.6); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 12px 32px rgba(123,63,228,0.10); display: flex; flex-direction: column; gap: 8px; height: min(calc(100vh - 48px), 1100px)">
-  <div style="display:flex;align-items:center;gap:12px;padding:0 8px 24px">
-    <div style="width:44px;height:44px;border-radius:14px;background:{{accentSoft}};display:flex;align-items:center;justify-content:center">
+<aside style="position: sticky; top: 24px; align-self: flex-start; flex: 0 0 clamp(220px, 19vw, 280px); box-sizing: border-box; padding: clamp(18px, 3vh, 32px) clamp(12px, 1.4vw, 20px); border-radius: clamp(24px, 2.2vw, 32px); background: rgba(255,255,255,0.6); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 12px 32px rgba(123,63,228,0.10); display: flex; flex-direction: column; gap: 8px; height: min(calc(100vh - 48px), 1100px)">
+  <div style="display:flex;align-items:center;gap:12px;padding:0 8px clamp(10px, 2vh, 24px)">
+    <div style="flex:0 0 auto;width:clamp(36px, 3vw, 44px);height:clamp(36px, 3vw, 44px);border-radius:14px;background:{{accentSoft}};display:flex;align-items:center;justify-content:center">
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"></path></svg>
     </div>
     <div style="display:flex;flex-direction:column;gap:2px">
-      <span style="font-size:15px;font-weight:700">Votre société</span>
+      <span style="font-size:clamp(13px, 1.05vw, 15px);font-weight:700">Votre société</span>
       <span style="font-size:11px;color:#6B6488">Logo et couleurs au choix</span>
     </div>
   </div>
-  <nav aria-label="Navigation principale" style="display:flex;flex-direction:column;gap:4px;flex:1 1 auto;min-height:0;overflow-y:auto;margin:0 -8px;padding:0 8px 8px">
+  <div style="position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;margin:0 -8px">
+  <nav id="side-nav" class="no-sb" onScroll="{{navScroll}}" aria-label="Navigation principale" style="display:flex;flex-direction:column;gap:4px;flex:1 1 auto;min-height:0;overflow-y:auto;padding:0 8px 56px;scroll-behavior:smooth">
     <sc-for list="{{navRows}}" as="r" hint-placeholder-count="12">
       <button type="button" aria-current="{{r.current}}" aria-expanded="{{r.expanded}}" onClick="{{r.pick}}" style="{{r.style}}">
         <svg aria-hidden="true" width="{{r.iconSize}}" height="{{r.iconSize}}" viewBox="0 0 24 24" fill="none" stroke="{{r.iconColor}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="{{r.d1}}"></path><path d="{{r.d2}}"></path><path d="{{r.d3}}"></path><path d="{{r.d4}}"></path></svg>
@@ -47,9 +48,11 @@ button{font-family:inherit}
       </button>
     </sc-for>
   </nav>
+  <div aria-hidden="true" style="{{navFadeStyle}}"></div>
+  </div>
   <!-- signature Sub360 -->
-  <div style="border-top:1px solid rgba(42,32,80,0.08);padding:20px 8px 4px;display:flex;flex-direction:column;gap:10px">
-    <svg role="img" aria-label="Logo Sub360" width="110" height="39" viewBox="0 0 495.05 173.77" style="display:block">
+  <div style="border-top:1px solid rgba(42,32,80,0.08);padding:clamp(10px, 2vh, 20px) 8px 4px;display:flex;flex-direction:column;gap:clamp(6px, 1vh, 10px)">
+    <svg role="img" aria-label="Logo Sub360" viewBox="0 0 495.05 173.77" style="display:block;width:clamp(80px, 8vw, 112px);height:auto">
       <defs>
         <linearGradient id="s360R" gradientUnits="userSpaceOnUse" x1="86" y1="165" x2="45" y2="21"><stop offset="0" stop-color="#432C6F"></stop><stop offset="0.28" stop-color="#7837B9"></stop><stop offset="0.5" stop-color="#9C49F5"></stop><stop offset="0.68" stop-color="#6896F9"></stop><stop offset="0.85" stop-color="#3FD2FC"></stop><stop offset="1" stop-color="#2FFBD3"></stop></linearGradient>
         <linearGradient id="s360L" gradientUnits="userSpaceOnUse" x1="86" y1="9" x2="63" y2="162"><stop offset="0" stop-color="#432C6F"></stop><stop offset="0.3" stop-color="#6934A4"></stop><stop offset="0.55" stop-color="#8C3BD5"></stop><stop offset="0.8" stop-color="#A140F3"></stop><stop offset="1" stop-color="#6F8BF8"></stop></linearGradient>
@@ -68,7 +71,7 @@ button{font-family:inherit}
         <path d="M456.5,92.41c-10.74,0-20.45,4.43-27.01,12.64h-.32v-37.05h-13.11v104.11h12.56v-12.48h.24c6.32,8.45,15.95,13.51,27.56,13.51,21.73,0,38.63-15.8,38.63-39.89s-16.27-40.84-38.55-40.84ZM455.16,161.13c-14.14,0-26.46-11.14-26.46-27.8s11.21-28.91,26.3-28.91,26.7,11.37,26.7,28.91c0,15.87-10.51,27.8-26.54,27.8Z"></path>
       </g>
     </svg>
-    <span style="font-size:10px;font-weight:500;color:#6B6488">Propulsé par Sub360</span>
+    <span style="font-size:clamp(9px, 0.75vw, 10px);font-weight:500;color:#6B6488">Propulsé par Sub360</span>
   </div>
 </aside><main style="position:relative;flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:28px">
 
@@ -89,7 +92,7 @@ button{font-family:inherit}
   </header>
 
   <!-- bandeau KPI -->
-  <section aria-label="Indicateurs clés" style="display:flex;flex-direction:column;gap:18px;padding:20px 8px;border-radius:28px;background:rgba(255,255,255,0.6);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);position:relative">
+  <section aria-label="Indicateurs clés" style="z-index:30;display:flex;flex-direction:column;gap:18px;padding:20px 8px;border-radius:28px;background:rgba(255,255,255,0.6);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);position:relative">
     <div onMouseEnter="{{measureFilters}}" style="position:relative">
     <div id="filter-scroll" data-fscroll="1" class="no-sb" onScroll="{{measureFilters}}" role="group" aria-label="Filtrer par entité" style="display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;scroll-behavior:smooth;padding:4px 24px 8px">
       <sc-for list="{{filters}}" as="fl" hint-placeholder-count="6">
@@ -115,7 +118,7 @@ button{font-family:inherit}
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 0 24px; border-left: 1px solid rgba(42,32,80,0.08); position: relative">
       <div style="width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"></ellipse><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path></svg></div>
       <span style="font-size:14px;font-weight:500;color:#6B6488">Coût mensuel</span>
-      <sc-if value="{{kPartial}}" hint-placeholder-val="{{ true }}"><span style="position:relative;display:inline-flex"><button type="button" aria-label="Pourquoi ce coût est partiel ?" aria-expanded="{{tipPartial}}" title="Total partiel : certains abonnements ne sont pas comptés (devise sans taux de change, prix non renseigné, abonnement annuel ou ponctuel non réparti sur le mois)." onClick="{{toggleTip}}" style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:8px;border:0;cursor:pointer;font-family:inherit;background:#FFF1D6;color:#8A4B00;font-size:12px;font-weight:700">partiel<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1.5px solid #8A4B00;font-size:10px;line-height:1">i</span></button><sc-if value="{{tipPartial}}" hint-placeholder-val="{{ false }}"><span role="tooltip" style="position:absolute;left:0;top:34px;z-index:20;width:290px;padding:12px 14px;border-radius:14px;background:rgba(42,32,80,0.94);color:#fff;font-size:12.5px;font-weight:500;line-height:1.5;box-shadow:0 12px 32px rgba(42,32,80,0.28)"><b style="display:block;margin-bottom:4px">Total partiel</b>Ce montant ne compte pas tous les abonnements. Sont exclus :<br>• les devises sans taux de change<br>• les prix non renseignés<br>• les abonnements annuels ou ponctuels, réglés une seule fois par an et non répartis sur le mois<br>Le coût réel du mois peut donc différer.</span></sc-if></span></sc-if>
+      <sc-if value="{{kPartial}}" hint-placeholder-val="{{ true }}"><span onMouseEnter="{{showTip}}" onMouseLeave="{{hideTip}}" style="position:relative;display:inline-flex"><button type="button" aria-label="Pourquoi ce coût est partiel ?" aria-expanded="{{tipPartial}}" aria-describedby="tip-partial" onFocus="{{showTip}}" onBlur="{{hideTip}}" onClick="{{showTip}}" style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:8px;border:0;cursor:pointer;font-family:inherit;background:#FFF1D6;color:#8A4B00;font-size:12px;font-weight:700">partiel<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1.5px solid #8A4B00;font-size:10px;line-height:1">i</span></button><span id="tip-partial" role="tooltip" style="{{tipStyle}}"><b style="display:block;margin-bottom:4px">Total partiel</b>Ce montant ne compte pas tous les abonnements. Sont exclus :<br>• les devises sans taux de change<br>• les prix non renseignés<br>• les abonnements annuels ou ponctuels, réglés une seule fois par an et non répartis sur le mois<br>Le coût réel du mois peut donc différer.</span></span></sc-if>
       <span style="font-size:20px;font-weight:800;font-variant-numeric:tabular-nums">{{kCost}}</span>
 </div>
     </div>
@@ -318,7 +321,7 @@ button{font-family:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#7B3FE4","options":["#7B3FE4","#0E7C86","#C2410C","#1D4ED8"]},"accent2":{"editor":"color","default":"#35D3F2"},"accent3":{"editor":"color","default":"#35F0C0"},"$preview":{"width":1440,"height":960}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { view: 'tiles', filter: 'all', chartEntity: 'Avaliance France', sel: 11, tableSoc: 'all', tipPartial: false, openMenu: 'abo', canL: false, canR: true }; }
+  constructor(props) { super(props); this.state = { view: 'tiles', filter: 'all', chartEntity: 'Avaliance France', sel: 11, tableSoc: 'all', tipPartial: false, openMenu: 'abo', canL: false, canR: true, navFade: false }; }
   rgba(hex, a) {
     const h = (hex || '#000000').replace('#', '');
     const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16);
@@ -335,8 +338,13 @@ class Component extends DCLogic {
     const r = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
     if (l !== this.state.canL || r !== this.state.canR) this.setState({ canL: l, canR: r });
   }
+  measureNav(el) {
+    if (!el) return;
+    const fade = el.scrollHeight > el.clientHeight + 4 && el.scrollTop + el.clientHeight < el.scrollHeight - 4;
+    if (fade !== this.state.navFade) this.setState({ navFade: fade });
+  }
   componentDidMount() {
-    const run = () => this.measure(document.getElementById('filter-scroll'));
+    const run = () => { this.measure(document.getElementById('filter-scroll')); this.measureNav(document.getElementById('side-nav')); };
     setTimeout(run, 50);
     try { window.addEventListener('resize', run); } catch (x) {}
   }
@@ -386,7 +394,7 @@ class Component extends DCLogic {
         iconSize: 20, hasChildren: hasKids, expanded: hasKids ? String(isOpen) : 'false', current: cur ? 'page' : 'false',
         iconColor: (cur || isOpen) ? accent : '#6B6488',
         chevron: 'flex:0 0 auto;transition:transform .2s;transform:rotate(' + (isOpen ? 180 : 0) + 'deg)',
-        style: btn + 'padding:13px 16px;border-radius:18px;font-size:15px;' + (cur
+        style: btn + 'padding:clamp(9px, 1.5vh, 13px) clamp(12px, 1.1vw, 16px);border-radius:18px;font-size:clamp(13px, 1.05vw, 15px);' + (cur
           ? 'background:' + this.rgba(accent, 0.12) + ';border-color:rgba(255,255,255,0.9);color:' + accent + ';font-weight:700;'
           : (isOpen ? 'background:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.9);color:#13111C;font-weight:700;' : 'background:none;color:#13111C;font-weight:500;')),
         pick: () => { if (hasKids) this.setState({ openMenu: isOpen ? '' : g.k }); }
@@ -396,7 +404,7 @@ class Component extends DCLogic {
           navRows.push({
             label: c[0], d1: c[1][0], d2: c[1][1] || '', d3: c[1][2] || '', d4: c[1][3] || '',
             iconSize: 18, hasChildren: false, expanded: 'false', current: 'false', iconColor: '#6B6488', chevron: '',
-            style: btn + 'margin-left:26px;width:calc(100% - 26px);padding:10px 14px;border-radius:14px;background:none;color:#13111C;font-size:14px;font-weight:500;',
+            style: btn + 'margin-left:clamp(14px, 1.8vw, 26px);width:calc(100% - clamp(14px, 1.8vw, 26px));padding:clamp(6px, 1.1vh, 10px) 14px;border-radius:14px;background:none;color:#13111C;font-size:clamp(12.5px, 1vw, 14px);font-weight:500;',
             pick: () => {}
           });
         });
@@ -526,7 +534,11 @@ class Component extends DCLogic {
       segTiles: isTiles ? on : off,
       segList: isTiles ? off : on,
       tipPartial: !!this.state.tipPartial,
-      toggleTip: () => this.setState({ tipPartial: !this.state.tipPartial }),
+      showTip: () => this.setState({ tipPartial: true }),
+      hideTip: () => this.setState({ tipPartial: false }),
+      tipStyle: 'position:absolute;left:0;top:36px;z-index:50;width:290px;box-sizing:border-box;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,0.78);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.95);box-shadow:0 12px 32px rgba(123,63,228,0.14),0 4px 14px rgba(123,63,228,0.06);color:#13111C;font-size:12.5px;font-weight:500;line-height:1.55;transform-origin:20px -6px;transition:opacity .24s cubic-bezier(.2,.8,.2,1),transform .24s cubic-bezier(.2,.8,.2,1),visibility 0s linear ' + (this.state.tipPartial ? '0s' : '.24s') + ';' + (this.state.tipPartial ? 'opacity:1;transform:translateY(0) scale(1);visibility:visible;pointer-events:auto;' : 'opacity:0;transform:translateY(6px) scale(.97);visibility:hidden;pointer-events:none;'),
+      navScroll: (e) => this.measureNav((e && e.currentTarget) || document.getElementById('side-nav')),
+      navFadeStyle: 'position:absolute;left:0;right:0;bottom:0;height:64px;pointer-events:none;border-radius:0 0 18px 18px;background:linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.92));transition:opacity .25s;opacity:' + (this.state.navFade ? 1 : 0),
       measureFilters: (e) => this.measure(this.filterEl(e)),
       scrollFiltersLeft: (e) => { const el = this.filterEl(e); if (el) { el.scrollBy({ left: -280, behavior: 'smooth' }); setTimeout(() => this.measure(el), 350); } },
       scrollFiltersRight: (e) => { const el = this.filterEl(e); if (el) { el.scrollBy({ left: 280, behavior: 'smooth' }); setTimeout(() => this.measure(el), 350); } },
