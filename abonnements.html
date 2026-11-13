@@ -39,13 +39,15 @@ a{color:#7B3FE4;text-decoration:none}
 button{font-family:inherit}
 </style>
 </helmet>
-<div style="--accent-8:{{accentHover}};--accent-40:{{accentRing}};position:relative;overflow:clip;min-height:960px;box-sizing:border-box;padding:24px;background:#F8F6FD;display:flex;flex-wrap:wrap;gap:32px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#13111C;align-items:stretch">
+<div style="--accent-8:{{accentHover}};--accent-40:{{accentRing}};position:relative;isolation:isolate;min-height:960px;box-sizing:border-box;padding:24px;background:#F8F6FD;display:flex;flex-wrap:wrap;gap:32px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#13111C;align-items:stretch">
 
 <!-- halos flous -->
+<div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:-1">
 <div aria-hidden="true" style="position:absolute;left:-120px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,{{accentGlow}},{{accentGlow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
 <div aria-hidden="true" style="position:absolute;right:-100px;top:-160px;width:460px;height:460px;border-radius:50%;background:radial-gradient(closest-side,{{accent2Glow}},{{accent2Glow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
 <div aria-hidden="true" style="position:absolute;right:120px;bottom:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,{{accentGlow}},{{accentGlow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
 <div aria-hidden="true" style="position:absolute;left:40px;bottom:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,{{accent3Glow}},{{accent3Glow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
+</div>
 
 <!-- SIDEBAR -->
 <div style="{{sideWrapStyle}}"><aside style="{{asideStyle}}">
@@ -159,7 +161,7 @@ button{font-family:inherit}
   </div>
 
   <!-- tableau -->
-  <section aria-labelledby="subs-title" style="background:rgba(255,255,255,0.6);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);border-radius:28px;overflow:hidden">
+  <section aria-labelledby="subs-title" style="background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);border-radius:28px;overflow:hidden">
     <div style="padding:26px 28px 18px;display:flex;flex-direction:column;gap:4px">
       <h2 id="subs-title" style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.3px">Abonnements</h2>
       <p style="margin:0;font-size:14px;color:#6B6488">{{countText}}</p>
