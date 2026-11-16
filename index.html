@@ -2,14 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Sub360 Tableau de bord</title>
-<script src="./vendor/react.js"></script>
-<script src="./vendor/react-dom.js"></script>
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sub360 · Tableau de bord</title>
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap">
 <style>
 .side-toggle{transition:box-shadow .2s ease,transform .2s ease}
@@ -28,351 +23,22 @@ body{margin:0;background:#F8F6FD}
 a{color:#7B3FE4;text-decoration:none}
 button{font-family:inherit}
 </style>
-</helmet>
-<div style="position:relative;isolation:isolate;min-height:960px;box-sizing:border-box;padding:24px;background:#F8F6FD;display:flex;flex-wrap:wrap;gap:32px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#13111C;align-items:stretch">
 
-<!-- halos flous -->
-<div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:-1">
-<div aria-hidden="true" style="position:absolute;left:-120px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,{{accentGlow}},{{accentGlow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
-<div aria-hidden="true" style="position:absolute;right:-100px;top:-160px;width:460px;height:460px;border-radius:50%;background:radial-gradient(closest-side,{{accent2Glow}},{{accent2Glow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
-<div aria-hidden="true" style="position:absolute;right:120px;bottom:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,{{accentGlow}},{{accentGlow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
-<div aria-hidden="true" style="position:absolute;left:40px;bottom:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,{{accent3Glow}},{{accent3Glow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
-</div>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TEMPLATE = "\n<div style=\"position:relative;isolation:isolate;min-height:960px;box-sizing:border-box;padding:24px;background:#F8F6FD;display:flex;flex-wrap:wrap;gap:32px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#13111C;align-items:stretch\">\n\n<!-- halos flous -->\n<div aria-hidden=\"true\" style=\"position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:-1\">\n<div aria-hidden=\"true\" style=\"position:absolute;left:-120px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,{{accentGlow}},{{accentGlow}} 35%,rgba(255,255,255,0));pointer-events:none\"><\/div>\n<div aria-hidden=\"true\" style=\"position:absolute;right:-100px;top:-160px;width:460px;height:460px;border-radius:50%;background:radial-gradient(closest-side,{{accent2Glow}},{{accent2Glow}} 35%,rgba(255,255,255,0));pointer-events:none\"><\/div>\n<div aria-hidden=\"true\" style=\"position:absolute;right:120px;bottom:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,{{accentGlow}},{{accentGlow}} 35%,rgba(255,255,255,0));pointer-events:none\"><\/div>\n<div aria-hidden=\"true\" style=\"position:absolute;left:40px;bottom:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,{{accent3Glow}},{{accent3Glow}} 35%,rgba(255,255,255,0));pointer-events:none\"><\/div>\n<\/div>\n\n<!-- SIDEBAR -->\n<div style=\"{{sideWrapStyle}}\"><aside style=\"{{asideStyle}}\">\n  <div style=\"{{slotStyle}}\">\n    <div style=\"flex:0 0 auto;width:clamp(36px, 3vw, 44px);height:clamp(36px, 3vw, 44px);border-radius:14px;background:{{accentSoft}};display:flex;align-items:center;justify-content:center\">\n      <svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 4v16M4 12h16\"><\/path><\/svg>\n    <\/div>\n    <div style=\"{{slotTextStyle}}\">\n      <span style=\"font-size:clamp(13px, 1.05vw, 15px);font-weight:700\">Votre soci\u00e9t\u00e9<\/span>\n      <span style=\"font-size:11px;color:#6B6488\">Logo et couleurs au choix<\/span>\n    <\/div>\n  <\/div>\n  <div style=\"position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;margin:0 -8px\">\n  <nav id=\"side-nav\" class=\"no-sb\" onScroll=\"{{navScroll}}\" aria-label=\"Navigation principale\" style=\"display:flex;flex-direction:column;gap:4px;flex:1 1 auto;min-height:0;overflow-y:auto;padding:0 8px 56px;scroll-behavior:smooth\">\n    <sc-for list=\"{{navRows}}\" as=\"r\" hint-placeholder-count=\"12\">\n      <button type=\"button\" title=\"{{r.label}}\" aria-label=\"{{r.label}}\" aria-current=\"{{r.current}}\" aria-expanded=\"{{r.expanded}}\" onClick=\"{{r.pick}}\" style=\"{{r.style}}\">\n        <svg aria-hidden=\"true\" width=\"{{r.iconSize}}\" height=\"{{r.iconSize}}\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{r.iconColor}}\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"flex:0 0 auto\"><path d=\"{{r.d1}}\"><\/path><path d=\"{{r.d2}}\"><\/path><path d=\"{{r.d3}}\"><\/path><path d=\"{{r.d4}}\"><\/path><\/svg>\n        <span style=\"{{labelStyle}}\">{{r.label}}<\/span>\n        <sc-if value=\"{{r.hasChildren}}\" hint-placeholder-val=\"{{ true }}\"><svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#6B6488\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"{{r.chevron}}\"><path d=\"m6 9 6 6 6-6\"><\/path><\/svg><\/sc-if>\n      <\/button>\n    <\/sc-for>\n  <\/nav>\n  <div aria-hidden=\"true\" style=\"{{navFadeStyle}}\"><\/div>\n  <\/div>\n  <!-- signature Sub360 -->\n  <div style=\"border-top:1px solid rgba(42,32,80,0.08);padding:clamp(10px, 2vh, 20px) 8px 4px;display:flex;flex-direction:column;gap:clamp(6px, 1vh, 10px)\">\n    <sc-if value=\"{{showLabels}}\" hint-placeholder-val=\"{{ true }}\"><div class=\"sb-fade\" style=\"display:flex;flex-direction:column;gap:clamp(6px, 1vh, 10px)\">\n    <svg role=\"img\" aria-label=\"Logo Sub360\" viewBox=\"0 0 495.05 173.77\" style=\"display:block;width:clamp(80px, 8vw, 112px);height:auto\">\n      <defs>\n        <linearGradient id=\"s360R\" gradientUnits=\"userSpaceOnUse\" x1=\"86\" y1=\"165\" x2=\"45\" y2=\"21\"><stop offset=\"0\" stop-color=\"#432C6F\"><\/stop><stop offset=\"0.28\" stop-color=\"#7837B9\"><\/stop><stop offset=\"0.5\" stop-color=\"#9C49F5\"><\/stop><stop offset=\"0.68\" stop-color=\"#6896F9\"><\/stop><stop offset=\"0.85\" stop-color=\"#3FD2FC\"><\/stop><stop offset=\"1\" stop-color=\"#2FFBD3\"><\/stop><\/linearGradient>\n        <linearGradient id=\"s360L\" gradientUnits=\"userSpaceOnUse\" x1=\"86\" y1=\"9\" x2=\"63\" y2=\"162\"><stop offset=\"0\" stop-color=\"#432C6F\"><\/stop><stop offset=\"0.3\" stop-color=\"#6934A4\"><\/stop><stop offset=\"0.55\" stop-color=\"#8C3BD5\"><\/stop><stop offset=\"0.8\" stop-color=\"#A140F3\"><\/stop><stop offset=\"1\" stop-color=\"#6F8BF8\"><\/stop><\/linearGradient>\n      <\/defs>\n      <path d=\"M86 9.3A77.9 77.9 0 0 0 63.2 161.6\" fill=\"none\" stroke=\"url(#s360L)\" stroke-width=\"16.4\" stroke-linecap=\"round\"><\/path>\n      <path d=\"M86 165A77.9 77.9 0 1 0 44.7 21.2\" fill=\"none\" stroke=\"url(#s360R)\" stroke-width=\"16.4\" stroke-linecap=\"round\"><\/path>\n      <line x1=\"196.31\" y1=\"1\" x2=\"196.31\" y2=\"173.77\" stroke=\"#857E99\" stroke-width=\"1\"><\/line>\n      <g fill=\"#9372DD\">\n        <path d=\"M309.27,58.56c-3.68,0-7.03-.81-10.04-2.44-3.01-1.63-5.41-3.81-7.2-6.56-1.79-2.75-2.68-5.8-2.68-9.16h6c0,2.35.61,4.48,1.84,6.4,1.23,1.92,2.87,3.45,4.92,4.6,2.05,1.15,4.39,1.72,7,1.72s4.87-.61,6.92-1.84c2.05-1.23,3.69-2.87,4.92-4.92,1.23-2.05,1.84-4.36,1.84-6.92s-.61-4.87-1.84-6.92c-1.23-2.05-2.87-3.69-4.92-4.92-2.05-1.23-4.36-1.84-6.92-1.84v-5.44c3.68-.05,7.01.76,10,2.44,2.99,1.68,5.36,3.96,7.12,6.84s2.64,6.13,2.64,9.76-.87,6.81-2.6,9.72c-1.73,2.91-4.08,5.21-7.04,6.92s-6.28,2.56-9.96,2.56ZM294.63,6.72V1.28h31.12v5.44h-31.12ZM304.31,25.76v-4.4l13.44-14.64h8l-16.24,16.72v2.32h-5.2Z\"><\/path>\n        <path d=\"M355.51,58.56c-3.84,0-7.32-.93-10.44-2.8-3.12-1.87-5.6-4.36-7.44-7.48-1.84-3.12-2.76-6.52-2.76-10.2,0-1.71.21-3.37.64-5,.43-1.63,1.01-3.16,1.76-4.6l14.56-27.2h6.56l-9.52,17.76c2.45-.96,5-1.39,7.64-1.28,2.64.11,5.19.65,7.64,1.64,2.45.99,4.65,2.37,6.6,4.16,1.95,1.79,3.49,3.91,4.64,6.36,1.15,2.45,1.72,5.2,1.72,8.24,0,3.79-.96,7.23-2.88,10.32-1.92,3.09-4.51,5.55-7.76,7.36-3.25,1.81-6.91,2.72-10.96,2.72ZM355.99,53.12c2.83,0,5.37-.67,7.64-2,2.27-1.33,4.08-3.13,5.44-5.4s2.04-4.79,2.04-7.56-.68-5.37-2.04-7.64c-1.36-2.27-3.17-4.08-5.44-5.44-2.27-1.36-4.81-2.04-7.64-2.04s-5.31.68-7.6,2.04c-2.29,1.36-4.12,3.19-5.48,5.48-1.36,2.29-2.04,4.8-2.04,7.52s.68,5.23,2.04,7.52c1.36,2.29,3.19,4.12,5.48,5.48,2.29,1.36,4.83,2.04,7.6,2.04Z\"><\/path>\n        <path d=\"M403.67,58.56c-4.32,0-8.05-1.19-11.2-3.56-3.15-2.37-5.59-5.75-7.32-10.12-1.73-4.37-2.6-9.57-2.6-15.6s.87-11.23,2.6-15.6c1.73-4.37,4.17-7.75,7.32-10.12,3.15-2.37,6.88-3.56,11.2-3.56s8.05,1.19,11.2,3.56c3.15,2.37,5.57,5.75,7.28,10.12,1.71,4.37,2.56,9.57,2.56,15.6s-.85,11.23-2.56,15.6c-1.71,4.37-4.13,7.75-7.28,10.12-3.15,2.37-6.88,3.56-11.2,3.56ZM403.67,53.36c3.15,0,5.85-.97,8.12-2.92,2.27-1.95,4.03-4.72,5.28-8.32,1.25-3.6,1.88-7.88,1.88-12.84s-.63-9.24-1.88-12.84c-1.25-3.6-3.01-6.37-5.28-8.32-2.27-1.95-5-2.92-8.2-2.92s-5.79.97-8.08,2.92c-2.29,1.95-4.07,4.72-5.32,8.32-1.25,3.6-1.88,7.88-1.88,12.84s.63,9.24,1.88,12.84c1.25,3.6,3.03,6.37,5.32,8.32,2.29,1.95,5.01,2.92,8.16,2.92Z\"><\/path>\n      <\/g>\n      <g fill=\"#432C6F\">\n        <path d=\"M344.33,68.68c-.56.6-13.89,14.53-41.48,13.31-11.79-.52-21.27-5.03-29.64-9.01-11.96-5.69-18.06-8.17-25.82-2.33-5.31,4.01-6.2,9.04-6.01,12.55.28,5.34,3.15,10.56,7.44,13.67.3.23.6.43.91.63h.01c.1.08.2.15.3.22,4.37,3.28,10.78,5.74,18.31,8.67,19.27,7.51,35.54,12.8,35.54,34.28s-18.56,32.47-38.39,32.47h0c-14.37-.01-29.22-5.54-40.67-17.78l8.92-10.82c8.37,10.27,20.69,15.25,31.91,15.25,14.06,0,23.54-6.56,23.54-17.54,0-12.95-10.43-16.43-25.75-22.19-8.55-3.18-17.18-6.62-23.64-11.81-7.54-5.69-12.4-14.72-12.91-24.28-.53-9.79,3.77-18.86,11.77-24.9,15.11-11.39,28.75-4.9,40.77.82,7.47,3.55,15.19,7.22,24.05,7.61,20.54.92,29.92-8.38,30.3-8.78l10.54,9.96Z\"><\/path>\n        <path d=\"M378.7,131.51c0,18.72-10.82,29.54-23.38,29.54s-19.19-6.63-19.19-24.56v-43.13h-13.11v46.92c0,22.43,11.45,32.86,29.54,32.86,10.19,0,19.67-4.98,25.91-14.06h.24v13.03h13.11v-78.75h-13.11v38.15Z\"><\/path>\n        <path d=\"M456.5,92.41c-10.74,0-20.45,4.43-27.01,12.64h-.32v-37.05h-13.11v104.11h12.56v-12.48h.24c6.32,8.45,15.95,13.51,27.56,13.51,21.73,0,38.63-15.8,38.63-39.89s-16.27-40.84-38.55-40.84ZM455.16,161.13c-14.14,0-26.46-11.14-26.46-27.8s11.21-28.91,26.3-28.91,26.7,11.37,26.7,28.91c0,15.87-10.51,27.8-26.54,27.8Z\"><\/path>\n      <\/g>\n    <\/svg>\n    <span style=\"font-size:clamp(9px, 0.75vw, 10px);font-weight:500;color:#6B6488\">Propuls\u00e9 par Sub360<\/span>\n    <\/div><\/sc-if>\n    <sc-if value=\"{{collapsed}}\" hint-placeholder-val=\"{{ false }}\"><div class=\"sb-fade\" style=\"display:flex;justify-content:center\"><svg role=\"img\" aria-label=\"Sub360\" viewBox=\"0 0 172 175\" style=\"display:block;width:38px;height:auto\">\n      <defs>\n        <linearGradient id=\"s360Rc\" gradientUnits=\"userSpaceOnUse\" x1=\"86\" y1=\"165\" x2=\"45\" y2=\"21\"><stop offset=\"0\" stop-color=\"#432C6F\"><\/stop><stop offset=\"0.28\" stop-color=\"#7837B9\"><\/stop><stop offset=\"0.5\" stop-color=\"#9C49F5\"><\/stop><stop offset=\"0.68\" stop-color=\"#6896F9\"><\/stop><stop offset=\"0.85\" stop-color=\"#3FD2FC\"><\/stop><stop offset=\"1\" stop-color=\"#2FFBD3\"><\/stop><\/linearGradient>\n        <linearGradient id=\"s360Lc\" gradientUnits=\"userSpaceOnUse\" x1=\"86\" y1=\"9\" x2=\"63\" y2=\"162\"><stop offset=\"0\" stop-color=\"#432C6F\"><\/stop><stop offset=\"0.3\" stop-color=\"#6934A4\"><\/stop><stop offset=\"0.55\" stop-color=\"#8C3BD5\"><\/stop><stop offset=\"0.8\" stop-color=\"#A140F3\"><\/stop><stop offset=\"1\" stop-color=\"#6F8BF8\"><\/stop><\/linearGradient>\n      <\/defs>\n      <path d=\"M86 9.3A77.9 77.9 0 0 0 63.2 161.6\" fill=\"none\" stroke=\"url(#s360Lc)\" stroke-width=\"16.4\" stroke-linecap=\"round\"><\/path>\n      <path d=\"M86 165A77.9 77.9 0 1 0 44.7 21.2\" fill=\"none\" stroke=\"url(#s360Rc)\" stroke-width=\"16.4\" stroke-linecap=\"round\"><\/path>\n    <\/svg><\/div><\/sc-if>\n  <\/div>\n<\/aside><\/div><main style=\"position:relative;flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:28px\">\n  <!-- barre sup\u00e9rieure -->\n  <header style=\"position:sticky;top:24px;z-index:40;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;box-sizing:border-box;padding:10px 12px 10px 14px;border-radius:24px;background:rgba(255,255,255,0.6);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10)\">\n    <div style=\"display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;min-width:0\">\n      <div style=\"display:flex;align-items:center;gap:12px;min-width:0\">\n        <button type=\"button\" aria-label=\"{{sideToggleLabel}}\" title=\"{{sideToggleLabel}}\" aria-expanded=\"{{sideExpanded}}\" onClick=\"{{toggleSide}}\" class=\"side-toggle\" style=\"flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,0.95);background:rgba(255,255,255,0.82);box-shadow:0 8px 24px rgba(123,63,228,0.10);cursor:pointer\"><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"{{sideChevron}}\"><path d=\"m15 6-6 6 6 6\"><\/path><\/svg><\/button>\n        <div style=\"flex:0 0 auto;width:40px;height:40px;border-radius:14px;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"flex:0 0 auto\"><path d=\"M4 21V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v15\"><\/path><path d=\"M16 10h2a2 2 0 0 1 2 2v9\"><\/path><path d=\"M2 21h20\"><\/path><path d=\"M8 8h4M8 12h4M8 16h4\"><\/path><\/svg><\/div>\n        <span style=\"font-size:16px;font-weight:800;letter-spacing:-0.2px;white-space:nowrap\">Sub360 Groupe Avaliance<\/span>\n      <\/div>\n    <\/div>\n    <div style=\"display:flex;align-items:center;gap:12px\">\n      <button type=\"button\" aria-label=\"Notifications, 3 non lues\" style=\"position:relative;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,0.95);background:rgba(255,255,255,0.82);box-shadow:0 8px 24px rgba(123,63,228,0.10);cursor:pointer\">\n        <svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"flex:0 0 auto\"><path d=\"M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"><\/path><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"><\/path><\/svg>\n        <span aria-hidden=\"true\" style=\"position:absolute;top:9px;right:10px;width:10px;height:10px;border-radius:50%;background:{{accent}};border:2px solid #FFFFFF\"><\/span>\n      <\/button>\n      <div data-dd=\"1\" style=\"{{profWrap}}\">\n        <button type=\"button\" aria-haspopup=\"menu\" aria-expanded=\"{{profOpen}}\" aria-label=\"Menu du profil\" onClick=\"{{toggleProfile}}\" style=\"display:flex;align-items:center;gap:10px;height:44px;padding:0 14px 0 6px;border-radius:999px;border:1px solid rgba(255,255,255,0.95);background:rgba(255,255,255,0.82);box-shadow:0 8px 24px rgba(123,63,228,0.10);cursor:pointer;font-family:inherit\">\n          <span aria-hidden=\"true\" style=\"display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:{{accentSoft}};color:{{accent}};font-size:14px;font-weight:800\">Z<\/span>\n          <span style=\"font-size:14px;font-weight:700;color:#13111C\">Zineb<\/span>\n          <svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"{{profChevron}}\"><path d=\"m6 15 6-6 6 6\"><\/path><\/svg>\n        <\/button>\n        <div role=\"menu\" aria-label=\"Profil\" style=\"{{profPanel}}\">\n          <div style=\"padding:12px 16px 14px\"><div style=\"font-size:15px;font-weight:700;color:#13111C\">Zineb<\/div><div style=\"margin-top:2px;font-size:13px;font-weight:500;color:#6B6488\">prenom.nom@groupe.com<\/div><\/div>\n          <div aria-hidden=\"true\" style=\"height:1px;margin:0 8px 6px;background:rgba(19,17,28,0.08)\"><\/div>\n          <button type=\"button\" role=\"menuitem\" class=\"dd-opt\" onClick=\"{{closeProfile}}\" style=\"display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;font-family:inherit;padding:13px 16px;border-radius:14px;font-size:14.5px;font-weight:500;color:#13111C\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"flex:0 0 auto\"><path d=\"M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"><\/path><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"><\/path><\/svg><span style=\"flex:1 1 auto\">Notifications<\/span><\/button>\n          <button type=\"button\" role=\"menuitem\" class=\"dd-opt\" onClick=\"{{closeProfile}}\" style=\"display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;font-family:inherit;padding:13px 16px;border-radius:14px;font-size:14.5px;font-weight:500;color:#13111C\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"flex:0 0 auto\"><path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"><\/path><path d=\"m16 17 5-5-5-5\"><\/path><path d=\"M21 12H9\"><\/path><\/svg><span style=\"flex:1 1 auto\">Se d\u00e9connecter<\/span><\/button>\n          <button type=\"button\" role=\"menuitem\" class=\"dd-opt\" onClick=\"{{closeProfile}}\" style=\"display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;font-family:inherit;padding:13px 16px;border-radius:14px;font-size:14.5px;font-weight:500;color:#C2255C\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C2255C\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"flex:0 0 auto\"><path d=\"M12 3 4 6v6c0 5 3.5 8 8 9 2.1-.5 4-1.7 5.4-3.3\"><\/path><path d=\"M20 12V6l-8-3-2.6 1\"><\/path><path d=\"m3 3 18 18\"><\/path><\/svg><span style=\"flex:1 1 auto\">Se d\u00e9connecter de tous les appareils<\/span><\/button>\n        <\/div>\n      <\/div>\n    <\/div>\n  <\/header>\n\n\n  <!-- en-t\u00eate -->\n  <header style=\"display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:space-between;align-items:flex-start\">\n    <div style=\"display:flex;flex-direction:column;gap:6px;min-width:0\">\n      <nav aria-label=\"Fil d\u2019Ariane\" style=\"display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px;font-size:14px;font-weight:500;color:#6B6488\">\n        <span>Accueil<\/span><svg aria-hidden=\"true\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#6B6488\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"flex:0 0 auto\"><path d=\"m9 6 6 6-6 6\"><\/path><\/svg><span aria-current=\"page\" style=\"font-weight:700;color:#13111C\">Tableau de bord<\/span>\n      <\/nav>\n      <h1 style=\"margin:0;font-size:34px;font-weight:800;letter-spacing:-0.8px;text-wrap:balance\">Vos entit\u00e9s, en un seul espace.<\/h1>\n      <p style=\"margin:0;font-size:14px;color:#6B6488\">Acc\u00e9dez aux abonnements et aux \u00e9ch\u00e9ances de chaque soci\u00e9t\u00e9.<\/p>\n    <\/div>\n    <div style=\"display:flex;flex-wrap:wrap;gap:12px\">\n      <button type=\"button\" style=\"display:flex;align-items:center;gap:10px;padding:13px 20px;border-radius:16px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 8px 24px rgba(123,63,228,0.08);font-size:14px;font-weight:700;color:#13111C;cursor:pointer\">\n        <svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"1.8\" stroke-linecap=\"round\"><path d=\"M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12\"><\/path><circle cx=\"16\" cy=\"6\" r=\"2\"><\/circle><circle cx=\"10\" cy=\"12\" r=\"2\"><\/circle><circle cx=\"18\" cy=\"18\" r=\"2\"><\/circle><\/svg>\n        Personnaliser ma vue<\/button>\n      <button type=\"button\" style=\"display:flex;align-items:center;gap:10px;padding:13px 22px;border-radius:16px;background:{{accent}};border:0;box-shadow:0 10px 24px -4px {{accentShadow}};font-size:14px;font-weight:700;color:#FFFFFF;cursor:pointer\">\n        <svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 5v14M5 12h14\"><\/path><\/svg>\n        Ajouter un abonnement<\/button>\n    <\/div>\n  <\/header>\n\n  <!-- bandeau KPI -->\n  <section aria-label=\"Indicateurs cl\u00e9s\" style=\"z-index:30;display:flex;flex-direction:column;gap:18px;padding:20px 8px;border-radius:28px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);position:relative\">\n    <div onMouseEnter=\"{{measureFilters}}\" style=\"position:relative\">\n    <div id=\"filter-scroll\" data-fscroll=\"1\" class=\"no-sb\" onScroll=\"{{measureFilters}}\" role=\"group\" aria-label=\"Filtrer par entit\u00e9\" style=\"display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;scroll-behavior:smooth;padding:4px 24px 8px\">\n      <sc-for list=\"{{filters}}\" as=\"fl\" hint-placeholder-count=\"6\">\n      <button type=\"button\" aria-pressed=\"{{fl.pressed}}\" onClick=\"{{fl.pick}}\" style=\"{{fl.style}}\">{{fl.label}}<span style=\"{{fl.badge}}\">{{fl.count}}<\/span><\/button>\n      <\/sc-for>\n    <\/div>\n      <button type=\"button\" aria-label=\"D\u00e9filer vers la gauche\" onClick=\"{{scrollFiltersLeft}}\" style=\"{{arrowLeftStyle}}\"><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m15 6-6 6 6 6\"><\/path><\/svg><\/button>\n      <button type=\"button\" aria-label=\"D\u00e9filer vers la droite\" onClick=\"{{scrollFiltersRight}}\" style=\"{{arrowRightStyle}}\"><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#13111C\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 6 6 6-6 6\"><\/path><\/svg><\/button>\n    <\/div>\n    <div style=\"display: flex; flex-wrap: wrap; gap: 20px 0; justify-content: space-between; align-items: center; position: relative\">\n    <div style=\"display:flex;align-items:center;gap:14px;padding:0 24px\">\n      <div style=\"width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m12 2 9 5-9 5-9-5 9-5Z\"><\/path><path d=\"m3 12 9 5 9-5\"><\/path><path d=\"m3 17 9 5 9-5\"><\/path><\/svg><\/div>\n      <div style=\"display:flex;align-items:baseline;gap:6px\"><span style=\"font-size:28px;font-weight:800;font-variant-numeric:tabular-nums\">{{kSubs}}<\/span><span style=\"font-size:14px;font-weight:500;color:#6B6488\">{{kSubsLabel}}<\/span><\/div>\n    <\/div>\n    <div style=\"display:flex;align-items:center;gap:14px;padding:0 24px\">\n      <div style=\"width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"><\/circle><path d=\"m8.5 12.5 2.5 2.5 4.5-5\"><\/path><\/svg><\/div>\n      <div style=\"display:flex;align-items:baseline;gap:6px\"><span style=\"font-size:28px;font-weight:800;font-variant-numeric:tabular-nums\">{{kActive}}<\/span><span style=\"font-size:14px;font-weight:500;color:#6B6488\">{{kActiveLabel}}<\/span><\/div>\n    <\/div>\n    <div style=\"display:flex;align-items:center;gap:14px;padding:0 24px\">\n      <div style=\"width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#8A4B00\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"><\/circle><path d=\"M12 7v5l3 2\"><\/path><\/svg><\/div>\n      <div style=\"display:flex;align-items:baseline;gap:6px\"><span style=\"font-size:28px;font-weight:800;font-variant-numeric:tabular-nums\">{{kPre}}<\/span><span style=\"font-size:14px;font-weight:500;color:#6B6488\">{{kPreLabel}}<\/span><\/div>\n    <\/div>\n    <div style=\"display:flex;align-items:center;gap:14px;padding:0 24px\">\n      <div style=\"width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C2255C\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 2 20h20L12 3Z\"><\/path><path d=\"M12 10v4M12 17.5v.01\"><\/path><\/svg><\/div>\n      <div style=\"display:flex;align-items:baseline;gap:6px\"><span style=\"font-size:28px;font-weight:800;color:{{kExpColor}}\">{{kExp}}<\/span><span style=\"font-size:14px;font-weight:500;color:#6B6488\">{{kExpLabel}}<\/span><\/div>\n    <\/div>\n    <div style=\"display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 0 24px; position: relative\">\n      <div style=\"width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><ellipse cx=\"12\" cy=\"6\" rx=\"8\" ry=\"3\"><\/ellipse><path d=\"M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6\"><\/path><\/svg><\/div>\n      <span style=\"font-size:14px;font-weight:500;color:#6B6488\">Co\u00fbt mensuel<\/span>\n      <sc-if value=\"{{kPartial}}\" hint-placeholder-val=\"{{ true }}\"><span onMouseEnter=\"{{showTip}}\" onMouseLeave=\"{{hideTip}}\" style=\"position:relative;display:inline-flex\"><button type=\"button\" aria-label=\"Pourquoi ce co\u00fbt est partiel ?\" aria-expanded=\"{{tipPartial}}\" aria-describedby=\"tip-partial\" onFocus=\"{{showTip}}\" onBlur=\"{{hideTip}}\" onClick=\"{{showTip}}\" style=\"display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:8px;border:0;cursor:pointer;font-family:inherit;background:#FFF1D6;color:#8A4B00;font-size:12px;font-weight:700\">partiel<span aria-hidden=\"true\" style=\"display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1.5px solid #8A4B00;font-size:10px;line-height:1\">i<\/span><\/button><span id=\"tip-partial\" role=\"tooltip\" style=\"{{tipStyle}}\"><b style=\"display:block;margin-bottom:4px\">Total partiel<\/b>Ce montant ne compte pas tous les abonnements. Sont exclus :<br>\u2022 les devises sans taux de change<br>\u2022 les prix non renseign\u00e9s<br>\u2022 les abonnements annuels ou ponctuels, r\u00e9gl\u00e9s une seule fois par an et non r\u00e9partis sur le mois<br>Le co\u00fbt r\u00e9el du mois peut donc diff\u00e9rer.<\/span><\/span><\/sc-if>\n      <span style=\"font-size:20px;font-weight:800;font-variant-numeric:tabular-nums\">{{kCost}}<\/span>\n<\/div>\n    <\/div>\n  <\/section>\n\n  <!-- contenu -->\n  <div style=\"display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start\">\n\n    <!-- biblioth\u00e8que -->\n    <section style=\"flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:20px\">\n      <div style=\"display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center\">\n        <h2 style=\"margin:0;font-size:22px;font-weight:800;letter-spacing:-0.3px\">Biblioth\u00e8que des entit\u00e9s<\/h2>\n        <div role=\"group\" aria-label=\"Affichage\" style=\"display:flex;gap:4px;padding:4px;border-radius:16px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9)\">\n          <button type=\"button\" aria-pressed=\"{{isTiles}}\" onClick=\"{{showTiles}}\" style=\"{{segTiles}}\">Tuiles<\/button>\n          <button type=\"button\" aria-pressed=\"{{isList}}\" onClick=\"{{showList}}\" style=\"{{segList}}\">Liste<\/button>\n        <\/div>\n      <\/div>\n\n      <sc-if value=\"{{isTiles}}\" hint-placeholder-val=\"{{ true }}\">\n      <div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px;align-items:start\">\n        <sc-for list=\"{{entities}}\" as=\"e\" hint-placeholder-count=\"5\">\n        <div style=\"display:flex;flex-direction:column\">\n          <div style=\"width:96px;height:26px;margin-left:18px;margin-bottom:-10px;border-radius:14px 14px 0 0;background:{{e.tab}};\"><\/div>\n          <div style=\"position:relative;box-sizing:border-box;padding:24px 22px 22px;border-radius:26px;background:rgba(255,255,255,0.66);border:1px solid rgba(255,255,255,0.95);box-shadow:0 12px 32px rgba(123,63,228,0.10);display:flex;flex-direction:column;gap:14px\">\n            <div style=\"display:flex;align-items:center;gap:12px\">\n              <div style=\"flex:0 0 44px;width:44px;height:44px;border-radius:14px;background:#FFFFFF;border:1px solid rgba(19,17,28,0.08);box-shadow:0 4px 14px rgba(123,63,228,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden\"><div role=\"img\" aria-label=\"Logo {{e.name}}\" style=\"{{e.logoStyle}}\"><\/div><\/div>\n              <span style=\"font-size:16px;font-weight:700\">{{e.name}}<\/span>\n            <\/div>\n            <div style=\"display:flex;align-items:baseline;gap:6px;flex-wrap:wrap\"><span style=\"font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-0.3px\">{{e.amount}}<\/span><span style=\"font-size:13px;font-weight:500;color:#6B6488\">/ mois<\/span><\/div>\n            <div style=\"display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; font-weight: 500; color: #6B6488; position: relative\">\n              <svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#6B6488\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m12 2 9 5-9 5-9-5 9-5Z\"><\/path><path d=\"m3 12 9 5 9-5\"><\/path><path d=\"m3 17 9 5 9-5\"><\/path><\/svg>\n              <span>{{e.countLabel}}<\/span>\n              <sc-if value=\"{{e.partial}}\" hint-placeholder-val=\"{{ false }}\"><span style=\"padding:3px 8px;border-radius:8px;background:#FFF1D6;color:#8A4B00;font-size:11px;font-weight:700\">Total partiel<\/span><\/sc-if>\n            <svg width=\"6\" height=\"19\" viewBox=\"0 0 6 19\" preserveAspectRatio=\"none\" style=\"position: absolute; left: -553.7px; top: 635.6px; width: 6px; height: 19px; overflow: visible; fill: none; stroke: #8a8378; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round\"><path d=\"M0.46 13.654 C0.14 14.158 0 14.7 0 15.239 C0 17.155 1.764 19.029 3.44 19.029 C4.955 19.029 6.398 17.496 6.398 13.074 C6.398 10.13 5.759 5.906 4.075 0\" vector-effect=\"non-scaling-stroke\"><\/path><\/svg><\/div>\n            <div style=\"height:1px;background:rgba(42,32,80,0.08)\"><\/div>\n            <a href=\"#\" style=\"display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:{{accent}}\">Ouvrir l'entit\u00e9\n              <svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"><\/path><\/svg><\/a>\n          <\/div>\n        <\/div>\n        <\/sc-for>\n        <a href=\"#\" style=\"box-sizing:border-box;min-height:170px;margin-top:16px;border-radius:26px;border:1.5px dashed {{accentDash}};background:rgba(255,255,255,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:700;color:{{accent}}\">\n          <span style=\"width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 5v14M5 12h14\"><\/path><\/svg><\/span>\n          Ajouter une entit\u00e9<\/a>\n      <\/div>\n      <\/sc-if>\n\n      <sc-if value=\"{{isList}}\" hint-placeholder-val=\"{{ false }}\">\n      <div style=\"display:flex;flex-direction:column;gap:10px\">\n        <sc-for list=\"{{entities}}\" as=\"e\" hint-placeholder-count=\"5\">\n        <div style=\"display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 20px;border-radius:20px;background:rgba(255,255,255,0.62);border:1px solid rgba(255,255,255,0.95);box-shadow:0 8px 24px rgba(123,63,228,0.08)\">\n          <div style=\"flex:0 0 44px;width:44px;height:44px;border-radius:14px;background:#FFFFFF;border:1px solid rgba(19,17,28,0.08);box-shadow:0 4px 14px rgba(123,63,228,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden\"><div role=\"img\" aria-label=\"Logo {{e.name}}\" style=\"{{e.logoStyle}}\"><\/div><\/div>\n          <span style=\"flex:1 1 140px;font-size:16px;font-weight:700\">{{e.name}}<\/span>\n          <span style=\"font-size:13px;font-weight:500;color:#6B6488\">{{e.countLabel}}<\/span>\n          <span style=\"font-size:18px;font-weight:800;font-variant-numeric:tabular-nums\">{{e.amount}} <span style=\"font-size:13px;font-weight:500;color:#6B6488\">/ mois<\/span><\/span>\n          <a href=\"#\" style=\"font-size:13px;font-weight:700;color:{{accent}}\">Ouvrir l'entit\u00e9<\/a>\n        <\/div>\n        <\/sc-for>\n      <\/div>\n      <\/sc-if>\n\n    <\/section>\n\n    <!-- \u00e9ch\u00e9ances -->\n    <aside style=\"flex: 1 1 300px; max-width: 340px; box-sizing: border-box; padding: 24px; border-radius: 28px; background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 12px 32px rgba(123,63,228,0.10); display: flex; flex-direction: column; gap: 18px; position: relative\">\n      <h2 style=\"margin:0;font-size:20px;font-weight:800\">\u00c0 ne pas manquer<\/h2>\n      <div style=\"align-self:flex-start;display:flex;align-items:center;gap:8px;padding:8px 16px 8px 14px;border-radius:999px;background:#FFF1D6;border:1px solid rgba(138,75,0,0.14);box-shadow:0 6px 16px rgba(138,75,0,0.10),inset 0 1px 0 rgba(255,255,255,0.7);color:#8A4B00;font-size:13px;font-weight:700\">\n        <svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#8A4B00\" stroke-width=\"1.8\" stroke-linecap=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"3\"><\/rect><path d=\"M3 10h18M8 3v4M16 3v4\"><\/path><\/svg>\n        3 \u00e9ch\u00e9ances \u00e0 suivre<\/div>\n      <sc-for list=\"{{events}}\" as=\"ev\" hint-placeholder-count=\"3\">\n      <div style=\"display:flex;gap:14px;align-items:flex-start\">\n        <div style=\"flex:0 0 54px;height:58px;border-radius:16px;background:#FFF1D6;border:1px solid rgba(138,75,0,0.14);box-shadow:0 6px 16px rgba(138,75,0,0.10),inset 0 1px 0 rgba(255,255,255,0.7);color:#8A4B00;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1\"><span style=\"font-size:20px;font-weight:800\">{{ev.day}}<\/span><span style=\"font-size:11px;font-weight:700\">{{ev.month}}<\/span><\/div>\n        <div style=\"display:flex;flex-direction:column;gap:4px;min-width:0\">\n          <span style=\"font-size:14px;font-weight:700\">{{ev.title}}<\/span>\n          <span style=\"font-size:13px;font-weight:500\">{{ev.subject}}<\/span>\n          <span style=\"font-size:12px;color:#6B6488\">{{ev.entity}}<\/span>\n          <a href=\"#\" style=\"font-size:13px;font-weight:700;color:{{accent}}\">{{ev.action}} \u2192<\/a>\n        <\/div>\n      <\/div>\n      <\/sc-for>\n      <a href=\"#\" style=\"font-size:14px;font-weight:700;color:{{accent}}\">Toutes les \u00e9ch\u00e9ances \u2192<\/a>\n    <\/aside>\n  <\/div>\n  <!-- co\u00fbt des abonnements actifs -->\n  <section aria-labelledby=\"cost-title\" style=\"position:relative;overflow:hidden;box-sizing:border-box;padding:28px;border-radius:28px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10)\">\n    <div aria-hidden=\"true\" style=\"position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(closest-side,{{accent2Glow}},{{accent2Glow}} 35%,rgba(255,255,255,0));pointer-events:none\"><\/div>\n    <div style=\"position:relative;display:flex;flex-direction:column;gap:28px\">\n      <div style=\"display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:space-between;align-items:flex-start\">\n        <div style=\"display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 320px\">\n          <h2 id=\"cost-title\" style=\"margin:0;font-size:22px;font-weight:800;letter-spacing:-0.3px\">Co\u00fbt des abonnements actifs<\/h2>\n          <p style=\"margin:0;font-size:13px;color:#6B6488;max-width:560px\">Au prix actuel, consolid\u00e9 dans la devise comptable de la soci\u00e9t\u00e9 avec le taux fig\u00e9 de chaque abonnement.<\/p>\n        <\/div>\n        <div data-dd=\"1\" style=\"{{ddChart.wrapStyle}}\">\n          <button type=\"button\" aria-haspopup=\"listbox\" aria-expanded=\"{{ddChart.open}}\" aria-label=\"Soci\u00e9t\u00e9\" onClick=\"{{ddChart.toggle}}\" style=\"{{ddChart.btnStyle}}\"><span style=\"font-size:12px;font-weight:700;color:#6B6488\">Soci\u00e9t\u00e9<\/span><span style=\"flex:1 1 auto;text-align:left;font-size:14px;font-weight:700;color:#13111C\">{{ddChart.label}}<\/span><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"{{ddChart.chevron}}\"><path d=\"m6 15 6-6 6 6\"><\/path><\/svg><\/button>\n          <div role=\"listbox\" aria-label=\"Soci\u00e9t\u00e9\" style=\"{{ddChart.panelStyle}}\">\n            <sc-for list=\"{{ddChart.options}}\" as=\"o\" hint-placeholder-count=\"5\"><button type=\"button\" role=\"option\" aria-selected=\"{{o.selected}}\" class=\"dd-opt\" onClick=\"{{o.pick}}\" style=\"{{o.style}}\">{{o.label}}<\/button><\/sc-for>\n          <\/div>\n        <\/div>\n      <\/div>\n\n      <div style=\"display:flex;flex-wrap:wrap;gap:20px 48px\">\n        <div style=\"display:flex;flex-direction:column;gap:6px\"><span style=\"font-size:13px;font-weight:700;color:{{accent}}\">Co\u00fbt mensuel<\/span><span style=\"font-size:34px;font-weight:800;letter-spacing:-0.8px;font-variant-numeric:tabular-nums;background:linear-gradient(90deg,{{accent}},{{accent2}});-webkit-background-clip:text;background-clip:text;color:transparent\">{{cMonthly}}<\/span><\/div>\n        <div style=\"display:flex;flex-direction:column;gap:6px\"><span style=\"font-size:13px;font-weight:700;color:{{accent}}\">Co\u00fbt annuel <span style=\"font-weight:500;color:#6B6488\">(mensuel \u00d7 12)<\/span><\/span><span style=\"font-size:34px;font-weight:800;letter-spacing:-0.8px;font-variant-numeric:tabular-nums\">{{cYearly}}<\/span><\/div>\n        <div style=\"display:flex;flex-direction:column;gap:6px\"><span style=\"font-size:13px;font-weight:700;color:{{accent}}\">Abonnements actifs<\/span><span style=\"font-size:34px;font-weight:800;letter-spacing:-0.8px\">{{cActive}}<\/span><span style=\"font-size:12px;color:#6B6488\">Tous compt\u00e9s<\/span><\/div>\n      <\/div>\n\n      <div style=\"padding-top: 28px; position: relative\">\n        <div style=\"display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 20px;padding:0 4px 26px;font-size:12px;font-weight:500;color:#6B6488\">\n          <span style=\"display:flex;align-items:center;gap:8px\"><span aria-hidden=\"true\" style=\"width:22px;height:4px;border-radius:2px;background:linear-gradient(90deg,{{accent2}},{{accent}});box-shadow:0 0 10px {{accent2Glow}}\"><\/span>Co\u00fbt mensuel<\/span>\n        <\/div>\n        <div style=\"display:flex;gap:12px\">\n          <div aria-hidden=\"true\" style=\"position:relative;flex:0 0 56px;height:232px\">\n            <sc-for list=\"{{ticks}}\" as=\"t\" hint-placeholder-count=\"5\">\n            <span style=\"position:absolute;right:0;top:{{t.top}}px;transform:translateY(-50%);font-size:11px;font-weight:500;color:#6B6488;font-variant-numeric:tabular-nums\">{{t.label}}<\/span>\n            <\/sc-for>\n          <\/div>\n          <div style=\"position:relative;flex:1 1 0;min-width:0;height:232px\">\n            <div aria-hidden=\"true\" style=\"position:absolute;inset:-14px -10px 0 -10px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.12));border:1px solid rgba(255,255,255,0.9);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9)\"><\/div>\n            <svg aria-hidden=\"true\" viewBox=\"0 0 1000 200\" preserveAspectRatio=\"none\" style=\"position:absolute;left:0;top:0;width:100%;height:200px;overflow:visible\">\n              <defs>\n                <linearGradient id=\"cvStroke\" gradientUnits=\"userSpaceOnUse\" x1=\"0\" y1=\"0\" x2=\"1000\" y2=\"0\"><stop offset=\"0\" stop-color=\"{{accent2}}\"><\/stop><stop offset=\"0.5\" stop-color=\"{{accent}}\"><\/stop><stop offset=\"1\" stop-color=\"{{accent2}}\"><\/stop><\/linearGradient>\n                <linearGradient id=\"cvArea\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"{{accent}}\" stop-opacity=\"0.22\"><\/stop><stop offset=\"1\" stop-color=\"{{accent2}}\" stop-opacity=\"0\"><\/stop><\/linearGradient>\n                <filter id=\"cvGlow\" x=\"-5%\" y=\"-40%\" width=\"110%\" height=\"180%\"><feGaussianBlur stdDeviation=\"6\"><\/feGaussianBlur><\/filter>\n              <\/defs>\n              <path d=\"{{curve.area}}\" fill=\"url(#cvArea)\" stroke=\"none\"><\/path>\n              <path d=\"{{curve.line}}\" fill=\"none\" stroke=\"url(#cvStroke)\" stroke-opacity=\"0.55\" stroke-width=\"9\" stroke-linecap=\"round\" filter=\"url(#cvGlow)\" vector-effect=\"non-scaling-stroke\"><\/path>\n              <path d=\"{{curve.line}}\" fill=\"none\" stroke=\"url(#cvStroke)\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" vector-effect=\"non-scaling-stroke\"><\/path>\n            <\/svg>\n            <div role=\"group\" aria-label=\"Co\u00fbt mensuel sur 12 mois\" style=\"position:absolute;inset:0;display:flex;gap:0\">\n              <sc-for list=\"{{bars}}\" as=\"b\" hint-placeholder-count=\"12\">\n              <button type=\"button\" aria-label=\"{{b.aria}}\" aria-pressed=\"{{b.isSel}}\" onClick=\"{{b.pick}}\" style=\"position:relative;flex:1 1 0;min-width:0;height:232px;padding:0;border:0;background:none;cursor:pointer;font-family:inherit\">\n                <sc-if value=\"{{b.isSel}}\" hint-placeholder-val=\"{{ false }}\"><span aria-hidden=\"true\" style=\"{{b.guideStyle}}\"><\/span><span style=\"{{b.tipStyle}}\">{{b.tip}}<\/span><\/sc-if>\n                <span aria-hidden=\"true\" style=\"{{b.dotStyle}}\"><\/span>\n                <span style=\"position:absolute;left:0;right:0;bottom:0;text-align:center;{{b.labelStyle}}\">{{b.label}}<\/span>\n              <\/button>\n              <\/sc-for>\n            <\/div>\n          <\/div>\n        <\/div>\n      <\/div>\n      <p style=\"margin:0;font-size:12px;color:#6B6488\">\u00c9volution sur 12 mois, depuis la saisie, au prix actuel ; r\u00e9siliations ant\u00e9rieures au 07/10/2026 non dat\u00e9es.<\/p>\n    <\/div>\n  <\/section>\n\n  <!-- co\u00fbt par d\u00e9partement -->\n  <section aria-labelledby=\"dept-title\" style=\"box-sizing:border-box;padding:28px;border-radius:28px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);display:flex;flex-direction:column;gap:24px\">\n    <div style=\"display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:space-between;align-items:flex-start\">\n      <div style=\"display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 320px\">\n        <h2 id=\"dept-title\" style=\"margin:0;font-size:22px;font-weight:800;letter-spacing:-0.3px\">Co\u00fbt par d\u00e9partement<\/h2>\n        <p style=\"margin:0;font-size:13px;color:#6B6488\">Du 01/11/2026 au 30/11/2026 \u2014 1 mois, un co\u00fbt mensuel par mois couvert, au prix actuel.<\/p>\n      <\/div>\n      <div style=\"display:flex;flex-wrap:wrap;gap:10px\">\n        <div data-dd=\"1\" style=\"{{ddTable.wrapStyle}}\">\n          <button type=\"button\" aria-haspopup=\"listbox\" aria-expanded=\"{{ddTable.open}}\" aria-label=\"Soci\u00e9t\u00e9\" onClick=\"{{ddTable.toggle}}\" style=\"{{ddTable.btnStyle}}\"><span style=\"flex:1 1 auto;text-align:left;font-size:14px;font-weight:700;color:#13111C\">{{ddTable.label}}<\/span><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"{{accent}}\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"{{ddTable.chevron}}\"><path d=\"m6 15 6-6 6 6\"><\/path><\/svg><\/button>\n          <div role=\"listbox\" aria-label=\"Soci\u00e9t\u00e9\" style=\"{{ddTable.panelStyle}}\">\n            <sc-for list=\"{{ddTable.options}}\" as=\"o\" hint-placeholder-count=\"5\"><button type=\"button\" role=\"option\" aria-selected=\"{{o.selected}}\" class=\"dd-opt\" onClick=\"{{o.pick}}\" style=\"{{o.style}}\">{{o.label}}<\/button><\/sc-for>\n          <\/div>\n        <\/div>\n        <span style=\"display:flex;align-items:center;padding:11px 16px;border-radius:14px;background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.95);box-shadow:0 4px 14px rgba(123,63,228,0.06);font-size:13px;font-weight:700;color:#13111C\">Mois en cours<\/span>\n        <button type=\"button\" style=\"display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:14px;background:{{accent}};border:0;box-shadow:0 10px 24px -6px {{accentShadow}};font-size:13px;font-weight:700;color:#FFFFFF;cursor:pointer\">\n          <svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 4v11M7 11l5 5 5-5M5 20h14\"><\/path><\/svg>\n          Exporter en PDF<\/button>\n      <\/div>\n    <\/div>\n    <div style=\"overflow-x:auto\">\n      <div role=\"table\" aria-label=\"Co\u00fbt par d\u00e9partement\" style=\"min-width:680px;display:flex;flex-direction:column;gap:8px\">\n        <div role=\"row\" style=\"display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(180px,1.7fr) 100px minmax(220px,1.5fr);gap:16px;padding:0 20px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B6488\">\n          <span role=\"columnheader\">Soci\u00e9t\u00e9<\/span><span role=\"columnheader\">D\u00e9partement<\/span><span role=\"columnheader\" style=\"text-align:right\">Abonnements<\/span><span role=\"columnheader\" style=\"text-align:right\">Co\u00fbt sur la p\u00e9riode<\/span>\n        <\/div>\n        <sc-for list=\"{{tableRows}}\" as=\"r\" hint-placeholder-count=\"16\">\n        <div role=\"row\" style=\"display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(180px,1.7fr) 100px minmax(220px,1.5fr);gap:16px;align-items:center;padding:14px 20px;border-radius:18px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.9);font-size:14px\">\n          <span role=\"cell\" style=\"font-weight:500;color:#6B6488\">{{r.soc}}<\/span>\n          <span role=\"cell\" style=\"font-weight:700\">{{r.dept}}<\/span>\n          <span role=\"cell\" style=\"text-align:right;font-weight:500;font-variant-numeric:tabular-nums\">{{r.subs}}<\/span>\n          <div role=\"cell\" style=\"display:flex;flex-direction:column;align-items:flex-end;gap:6px\">\n            <span style=\"font-weight:800;font-variant-numeric:tabular-nums\">{{r.cost}}<sc-if value=\"{{r.hasNote}}\" hint-placeholder-val=\"{{ false }}\"><span style=\"margin-left:8px;font-size:11px;font-weight:700;color:#8A4B00\">({{r.note}})<\/span><\/sc-if><\/span>\n            <div aria-hidden=\"true\" style=\"width:160px;max-width:100%;height:5px;border-radius:3px;background:{{accentSoft}}\"><div style=\"height:100%;width:{{r.barW}};border-radius:3px;background:linear-gradient(90deg,{{accent2}},{{accent}})\"><\/div><\/div>\n          <\/div>\n        <\/div>\n        <\/sc-for>\n      <\/div>\n    <\/div>\n  <\/section>\n<\/main>\n\n<!-- MAIN -->\n\n<\/div>\n";
+const PROPS = {"accent": "#7B3FE4", "accent2": "#35D3F2", "accent3": "#35F0C0"};
 
-<!-- SIDEBAR -->
-<div style="{{sideWrapStyle}}"><aside style="{{asideStyle}}">
-  <div style="{{slotStyle}}">
-    <div style="flex:0 0 auto;width:clamp(36px, 3vw, 44px);height:clamp(36px, 3vw, 44px);border-radius:14px;background:{{accentSoft}};display:flex;align-items:center;justify-content:center">
-      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"></path></svg>
-    </div>
-    <div style="{{slotTextStyle}}">
-      <span style="font-size:clamp(13px, 1.05vw, 15px);font-weight:700">Votre société</span>
-      <span style="font-size:11px;color:#6B6488">Logo et couleurs au choix</span>
-    </div>
-  </div>
-  <div style="position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;margin:0 -8px">
-  <nav id="side-nav" class="no-sb" onScroll="{{navScroll}}" aria-label="Navigation principale" style="display:flex;flex-direction:column;gap:4px;flex:1 1 auto;min-height:0;overflow-y:auto;padding:0 8px 56px;scroll-behavior:smooth">
-    <sc-for list="{{navRows}}" as="r" hint-placeholder-count="12">
-      <button type="button" title="{{r.label}}" aria-label="{{r.label}}" aria-current="{{r.current}}" aria-expanded="{{r.expanded}}" onClick="{{r.pick}}" style="{{r.style}}">
-        <svg aria-hidden="true" width="{{r.iconSize}}" height="{{r.iconSize}}" viewBox="0 0 24 24" fill="none" stroke="{{r.iconColor}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="{{r.d1}}"></path><path d="{{r.d2}}"></path><path d="{{r.d3}}"></path><path d="{{r.d4}}"></path></svg>
-        <span style="{{labelStyle}}">{{r.label}}</span>
-        <sc-if value="{{r.hasChildren}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{r.chevron}}"><path d="m6 9 6 6 6-6"></path></svg></sc-if>
-      </button>
-    </sc-for>
-  </nav>
-  <div aria-hidden="true" style="{{navFadeStyle}}"></div>
-  </div>
-  <!-- signature Sub360 -->
-  <div style="border-top:1px solid rgba(42,32,80,0.08);padding:clamp(10px, 2vh, 20px) 8px 4px;display:flex;flex-direction:column;gap:clamp(6px, 1vh, 10px)">
-    <sc-if value="{{showLabels}}" hint-placeholder-val="{{ true }}"><div class="sb-fade" style="display:flex;flex-direction:column;gap:clamp(6px, 1vh, 10px)">
-    <svg role="img" aria-label="Logo Sub360" viewBox="0 0 495.05 173.77" style="display:block;width:clamp(80px, 8vw, 112px);height:auto">
-      <defs>
-        <linearGradient id="s360R" gradientUnits="userSpaceOnUse" x1="86" y1="165" x2="45" y2="21"><stop offset="0" stop-color="#432C6F"></stop><stop offset="0.28" stop-color="#7837B9"></stop><stop offset="0.5" stop-color="#9C49F5"></stop><stop offset="0.68" stop-color="#6896F9"></stop><stop offset="0.85" stop-color="#3FD2FC"></stop><stop offset="1" stop-color="#2FFBD3"></stop></linearGradient>
-        <linearGradient id="s360L" gradientUnits="userSpaceOnUse" x1="86" y1="9" x2="63" y2="162"><stop offset="0" stop-color="#432C6F"></stop><stop offset="0.3" stop-color="#6934A4"></stop><stop offset="0.55" stop-color="#8C3BD5"></stop><stop offset="0.8" stop-color="#A140F3"></stop><stop offset="1" stop-color="#6F8BF8"></stop></linearGradient>
-      </defs>
-      <path d="M86 9.3A77.9 77.9 0 0 0 63.2 161.6" fill="none" stroke="url(#s360L)" stroke-width="16.4" stroke-linecap="round"></path>
-      <path d="M86 165A77.9 77.9 0 1 0 44.7 21.2" fill="none" stroke="url(#s360R)" stroke-width="16.4" stroke-linecap="round"></path>
-      <line x1="196.31" y1="1" x2="196.31" y2="173.77" stroke="#857E99" stroke-width="1"></line>
-      <g fill="#9372DD">
-        <path d="M309.27,58.56c-3.68,0-7.03-.81-10.04-2.44-3.01-1.63-5.41-3.81-7.2-6.56-1.79-2.75-2.68-5.8-2.68-9.16h6c0,2.35.61,4.48,1.84,6.4,1.23,1.92,2.87,3.45,4.92,4.6,2.05,1.15,4.39,1.72,7,1.72s4.87-.61,6.92-1.84c2.05-1.23,3.69-2.87,4.92-4.92,1.23-2.05,1.84-4.36,1.84-6.92s-.61-4.87-1.84-6.92c-1.23-2.05-2.87-3.69-4.92-4.92-2.05-1.23-4.36-1.84-6.92-1.84v-5.44c3.68-.05,7.01.76,10,2.44,2.99,1.68,5.36,3.96,7.12,6.84s2.64,6.13,2.64,9.76-.87,6.81-2.6,9.72c-1.73,2.91-4.08,5.21-7.04,6.92s-6.28,2.56-9.96,2.56ZM294.63,6.72V1.28h31.12v5.44h-31.12ZM304.31,25.76v-4.4l13.44-14.64h8l-16.24,16.72v2.32h-5.2Z"></path>
-        <path d="M355.51,58.56c-3.84,0-7.32-.93-10.44-2.8-3.12-1.87-5.6-4.36-7.44-7.48-1.84-3.12-2.76-6.52-2.76-10.2,0-1.71.21-3.37.64-5,.43-1.63,1.01-3.16,1.76-4.6l14.56-27.2h6.56l-9.52,17.76c2.45-.96,5-1.39,7.64-1.28,2.64.11,5.19.65,7.64,1.64,2.45.99,4.65,2.37,6.6,4.16,1.95,1.79,3.49,3.91,4.64,6.36,1.15,2.45,1.72,5.2,1.72,8.24,0,3.79-.96,7.23-2.88,10.32-1.92,3.09-4.51,5.55-7.76,7.36-3.25,1.81-6.91,2.72-10.96,2.72ZM355.99,53.12c2.83,0,5.37-.67,7.64-2,2.27-1.33,4.08-3.13,5.44-5.4s2.04-4.79,2.04-7.56-.68-5.37-2.04-7.64c-1.36-2.27-3.17-4.08-5.44-5.44-2.27-1.36-4.81-2.04-7.64-2.04s-5.31.68-7.6,2.04c-2.29,1.36-4.12,3.19-5.48,5.48-1.36,2.29-2.04,4.8-2.04,7.52s.68,5.23,2.04,7.52c1.36,2.29,3.19,4.12,5.48,5.48,2.29,1.36,4.83,2.04,7.6,2.04Z"></path>
-        <path d="M403.67,58.56c-4.32,0-8.05-1.19-11.2-3.56-3.15-2.37-5.59-5.75-7.32-10.12-1.73-4.37-2.6-9.57-2.6-15.6s.87-11.23,2.6-15.6c1.73-4.37,4.17-7.75,7.32-10.12,3.15-2.37,6.88-3.56,11.2-3.56s8.05,1.19,11.2,3.56c3.15,2.37,5.57,5.75,7.28,10.12,1.71,4.37,2.56,9.57,2.56,15.6s-.85,11.23-2.56,15.6c-1.71,4.37-4.13,7.75-7.28,10.12-3.15,2.37-6.88,3.56-11.2,3.56ZM403.67,53.36c3.15,0,5.85-.97,8.12-2.92,2.27-1.95,4.03-4.72,5.28-8.32,1.25-3.6,1.88-7.88,1.88-12.84s-.63-9.24-1.88-12.84c-1.25-3.6-3.01-6.37-5.28-8.32-2.27-1.95-5-2.92-8.2-2.92s-5.79.97-8.08,2.92c-2.29,1.95-4.07,4.72-5.32,8.32-1.25,3.6-1.88,7.88-1.88,12.84s.63,9.24,1.88,12.84c1.25,3.6,3.03,6.37,5.32,8.32,2.29,1.95,5.01,2.92,8.16,2.92Z"></path>
-      </g>
-      <g fill="#432C6F">
-        <path d="M344.33,68.68c-.56.6-13.89,14.53-41.48,13.31-11.79-.52-21.27-5.03-29.64-9.01-11.96-5.69-18.06-8.17-25.82-2.33-5.31,4.01-6.2,9.04-6.01,12.55.28,5.34,3.15,10.56,7.44,13.67.3.23.6.43.91.63h.01c.1.08.2.15.3.22,4.37,3.28,10.78,5.74,18.31,8.67,19.27,7.51,35.54,12.8,35.54,34.28s-18.56,32.47-38.39,32.47h0c-14.37-.01-29.22-5.54-40.67-17.78l8.92-10.82c8.37,10.27,20.69,15.25,31.91,15.25,14.06,0,23.54-6.56,23.54-17.54,0-12.95-10.43-16.43-25.75-22.19-8.55-3.18-17.18-6.62-23.64-11.81-7.54-5.69-12.4-14.72-12.91-24.28-.53-9.79,3.77-18.86,11.77-24.9,15.11-11.39,28.75-4.9,40.77.82,7.47,3.55,15.19,7.22,24.05,7.61,20.54.92,29.92-8.38,30.3-8.78l10.54,9.96Z"></path>
-        <path d="M378.7,131.51c0,18.72-10.82,29.54-23.38,29.54s-19.19-6.63-19.19-24.56v-43.13h-13.11v46.92c0,22.43,11.45,32.86,29.54,32.86,10.19,0,19.67-4.98,25.91-14.06h.24v13.03h13.11v-78.75h-13.11v38.15Z"></path>
-        <path d="M456.5,92.41c-10.74,0-20.45,4.43-27.01,12.64h-.32v-37.05h-13.11v104.11h12.56v-12.48h.24c6.32,8.45,15.95,13.51,27.56,13.51,21.73,0,38.63-15.8,38.63-39.89s-16.27-40.84-38.55-40.84ZM455.16,161.13c-14.14,0-26.46-11.14-26.46-27.8s11.21-28.91,26.3-28.91,26.7,11.37,26.7,28.91c0,15.87-10.51,27.8-26.54,27.8Z"></path>
-      </g>
-    </svg>
-    <span style="font-size:clamp(9px, 0.75vw, 10px);font-weight:500;color:#6B6488">Propulsé par Sub360</span>
-    </div></sc-if>
-    <sc-if value="{{collapsed}}" hint-placeholder-val="{{ false }}"><div class="sb-fade" style="display:flex;justify-content:center"><svg role="img" aria-label="Sub360" viewBox="0 0 172 175" style="display:block;width:38px;height:auto">
-      <defs>
-        <linearGradient id="s360Rc" gradientUnits="userSpaceOnUse" x1="86" y1="165" x2="45" y2="21"><stop offset="0" stop-color="#432C6F"></stop><stop offset="0.28" stop-color="#7837B9"></stop><stop offset="0.5" stop-color="#9C49F5"></stop><stop offset="0.68" stop-color="#6896F9"></stop><stop offset="0.85" stop-color="#3FD2FC"></stop><stop offset="1" stop-color="#2FFBD3"></stop></linearGradient>
-        <linearGradient id="s360Lc" gradientUnits="userSpaceOnUse" x1="86" y1="9" x2="63" y2="162"><stop offset="0" stop-color="#432C6F"></stop><stop offset="0.3" stop-color="#6934A4"></stop><stop offset="0.55" stop-color="#8C3BD5"></stop><stop offset="0.8" stop-color="#A140F3"></stop><stop offset="1" stop-color="#6F8BF8"></stop></linearGradient>
-      </defs>
-      <path d="M86 9.3A77.9 77.9 0 0 0 63.2 161.6" fill="none" stroke="url(#s360Lc)" stroke-width="16.4" stroke-linecap="round"></path>
-      <path d="M86 165A77.9 77.9 0 1 0 44.7 21.2" fill="none" stroke="url(#s360Rc)" stroke-width="16.4" stroke-linecap="round"></path>
-    </svg></div></sc-if>
-  </div>
-</aside></div><main style="position:relative;flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:28px">
-  <!-- barre supérieure -->
-  <header style="position:sticky;top:24px;z-index:40;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;box-sizing:border-box;padding:10px 12px 10px 14px;border-radius:24px;background:rgba(255,255,255,0.6);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10)">
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;min-width:0">
-      <div style="display:flex;align-items:center;gap:12px;min-width:0">
-        <button type="button" aria-label="{{sideToggleLabel}}" title="{{sideToggleLabel}}" aria-expanded="{{sideExpanded}}" onClick="{{toggleSide}}" class="side-toggle" style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,0.95);background:rgba(255,255,255,0.82);box-shadow:0 8px 24px rgba(123,63,228,0.10);cursor:pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="{{sideChevron}}"><path d="m15 6-6 6 6 6"></path></svg></button>
-        <div style="flex:0 0 auto;width:40px;height:40px;border-radius:14px;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="M4 21V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v15"></path><path d="M16 10h2a2 2 0 0 1 2 2v9"></path><path d="M2 21h20"></path><path d="M8 8h4M8 12h4M8 16h4"></path></svg></div>
-        <span style="font-size:16px;font-weight:800;letter-spacing:-0.2px;white-space:nowrap">Sub360 Groupe Avaliance</span>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <button type="button" aria-label="Notifications, 3 non lues" style="position:relative;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,0.95);background:rgba(255,255,255,0.82);box-shadow:0 8px 24px rgba(123,63,228,0.10);cursor:pointer">
-        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
-        <span aria-hidden="true" style="position:absolute;top:9px;right:10px;width:10px;height:10px;border-radius:50%;background:{{accent}};border:2px solid #FFFFFF"></span>
-      </button>
-      <div data-dd="1" style="{{profWrap}}">
-        <button type="button" aria-haspopup="menu" aria-expanded="{{profOpen}}" aria-label="Menu du profil" onClick="{{toggleProfile}}" style="display:flex;align-items:center;gap:10px;height:44px;padding:0 14px 0 6px;border-radius:999px;border:1px solid rgba(255,255,255,0.95);background:rgba(255,255,255,0.82);box-shadow:0 8px 24px rgba(123,63,228,0.10);cursor:pointer;font-family:inherit">
-          <span aria-hidden="true" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:{{accentSoft}};color:{{accent}};font-size:14px;font-weight:800">Z</span>
-          <span style="font-size:14px;font-weight:700;color:#13111C">Zineb</span>
-          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="{{profChevron}}"><path d="m6 15 6-6 6 6"></path></svg>
-        </button>
-        <div role="menu" aria-label="Profil" style="{{profPanel}}">
-          <div style="padding:12px 16px 14px"><div style="font-size:15px;font-weight:700;color:#13111C">Zineb</div><div style="margin-top:2px;font-size:13px;font-weight:500;color:#6B6488">prenom.nom@groupe.com</div></div>
-          <div aria-hidden="true" style="height:1px;margin:0 8px 6px;background:rgba(19,17,28,0.08)"></div>
-          <button type="button" role="menuitem" class="dd-opt" onClick="{{closeProfile}}" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;font-family:inherit;padding:13px 16px;border-radius:14px;font-size:14.5px;font-weight:500;color:#13111C"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span style="flex:1 1 auto">Notifications</span></button>
-          <button type="button" role="menuitem" class="dd-opt" onClick="{{closeProfile}}" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;font-family:inherit;padding:13px 16px;border-radius:14px;font-size:14.5px;font-weight:500;color:#13111C"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path></svg><span style="flex:1 1 auto">Se déconnecter</span></button>
-          <button type="button" role="menuitem" class="dd-opt" onClick="{{closeProfile}}" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;font-family:inherit;padding:13px 16px;border-radius:14px;font-size:14.5px;font-weight:500;color:#C2255C"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C2255C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 2.1-.5 4-1.7 5.4-3.3"></path><path d="M20 12V6l-8-3-2.6 1"></path><path d="m3 3 18 18"></path></svg><span style="flex:1 1 auto">Se déconnecter de tous les appareils</span></button>
-        </div>
-      </div>
-    </div>
-  </header>
+class DCLogic {
+  constructor(props) { this.props = props; this.state = {}; }
+  setState(o) { Object.assign(this.state, typeof o === 'function' ? o(this.state) : o); window.__render(); }
+}
 
 
-  <!-- en-tête -->
-  <header style="display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:space-between;align-items:flex-start">
-    <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
-      <nav aria-label="Fil d’Ariane" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px;font-size:14px;font-weight:500;color:#6B6488">
-        <span>Accueil</span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B6488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="m9 6 6 6-6 6"></path></svg><span aria-current="page" style="font-weight:700;color:#13111C">Tableau de bord</span>
-      </nav>
-      <h1 style="margin:0;font-size:34px;font-weight:800;letter-spacing:-0.8px;text-wrap:balance">Vos entités, en un seul espace.</h1>
-      <p style="margin:0;font-size:14px;color:#6B6488">Accédez aux abonnements et aux échéances de chaque société.</p>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px">
-      <button type="button" style="display:flex;align-items:center;gap:10px;padding:13px 20px;border-radius:16px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 8px 24px rgba(123,63,228,0.08);font-size:14px;font-weight:700;color:#13111C;cursor:pointer">
-        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
-        Personnaliser ma vue</button>
-      <button type="button" style="display:flex;align-items:center;gap:10px;padding:13px 22px;border-radius:16px;background:{{accent}};border:0;box-shadow:0 10px 24px -4px {{accentShadow}};font-size:14px;font-weight:700;color:#FFFFFF;cursor:pointer">
-        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
-        Ajouter un abonnement</button>
-    </div>
-  </header>
-
-  <!-- bandeau KPI -->
-  <section aria-label="Indicateurs clés" style="z-index:30;display:flex;flex-direction:column;gap:18px;padding:20px 8px;border-radius:28px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);position:relative">
-    <div onMouseEnter="{{measureFilters}}" style="position:relative">
-    <div id="filter-scroll" data-fscroll="1" class="no-sb" onScroll="{{measureFilters}}" role="group" aria-label="Filtrer par entité" style="display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;scroll-behavior:smooth;padding:4px 24px 8px">
-      <sc-for list="{{filters}}" as="fl" hint-placeholder-count="6">
-      <button type="button" aria-pressed="{{fl.pressed}}" onClick="{{fl.pick}}" style="{{fl.style}}">{{fl.label}}<span style="{{fl.badge}}">{{fl.count}}</span></button>
-      </sc-for>
-    </div>
-      <button type="button" aria-label="Défiler vers la gauche" onClick="{{scrollFiltersLeft}}" style="{{arrowLeftStyle}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"></path></svg></button>
-      <button type="button" aria-label="Défiler vers la droite" onClick="{{scrollFiltersRight}}" style="{{arrowRightStyle}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#13111C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg></button>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:20px 0;justify-content:space-between;align-items:center">
-    <div style="display:flex;align-items:center;gap:14px;padding:0 24px">
-      <div style="width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"></path><path d="m3 12 9 5 9-5"></path><path d="m3 17 9 5 9-5"></path></svg></div>
-      <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:28px;font-weight:800;font-variant-numeric:tabular-nums">{{kSubs}}</span><span style="font-size:14px;font-weight:500;color:#6B6488">{{kSubsLabel}}</span></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:14px;padding:0 24px;border-left:1px solid rgba(42,32,80,0.08)">
-      <div style="width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"></rect><path d="M9 7h2M13 7h2M9 11h2M13 11h2"></path></svg></div>
-      <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:28px;font-weight:800">{{kEnt}}</span><span style="font-size:14px;font-weight:500;color:#6B6488">{{kEntLabel}}</span></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:14px;padding:0 24px;border-left:1px solid rgba(42,32,80,0.08)">
-      <div style="width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C2255C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"></path><path d="M12 10v4M12 17.5v.01"></path></svg></div>
-      <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:28px;font-weight:800;color:{{kExpColor}}">{{kExp}}</span><span style="font-size:14px;font-weight:500;color:#6B6488">{{kExpLabel}}</span></div>
-    </div>
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 0 24px; border-left: 1px solid rgba(42,32,80,0.08); position: relative">
-      <div style="width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"></ellipse><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path></svg></div>
-      <span style="font-size:14px;font-weight:500;color:#6B6488">Coût mensuel</span>
-      <sc-if value="{{kPartial}}" hint-placeholder-val="{{ true }}"><span onMouseEnter="{{showTip}}" onMouseLeave="{{hideTip}}" style="position:relative;display:inline-flex"><button type="button" aria-label="Pourquoi ce coût est partiel ?" aria-expanded="{{tipPartial}}" aria-describedby="tip-partial" onFocus="{{showTip}}" onBlur="{{hideTip}}" onClick="{{showTip}}" style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:8px;border:0;cursor:pointer;font-family:inherit;background:#FFF1D6;color:#8A4B00;font-size:12px;font-weight:700">partiel<span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1.5px solid #8A4B00;font-size:10px;line-height:1">i</span></button><span id="tip-partial" role="tooltip" style="{{tipStyle}}"><b style="display:block;margin-bottom:4px">Total partiel</b>Ce montant ne compte pas tous les abonnements. Sont exclus :<br>• les devises sans taux de change<br>• les prix non renseignés<br>• les abonnements annuels ou ponctuels, réglés une seule fois par an et non répartis sur le mois<br>Le coût réel du mois peut donc différer.</span></span></sc-if>
-      <span style="font-size:20px;font-weight:800;font-variant-numeric:tabular-nums">{{kCost}}</span>
-</div>
-    </div>
-  </section>
-
-  <!-- contenu -->
-  <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
-
-    <!-- bibliothèque -->
-    <section style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:20px">
-      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center">
-        <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.3px">Bibliothèque des entités</h2>
-        <div role="group" aria-label="Affichage" style="display:flex;gap:4px;padding:4px;border-radius:16px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9)">
-          <button type="button" aria-pressed="{{isTiles}}" onClick="{{showTiles}}" style="{{segTiles}}">Tuiles</button>
-          <button type="button" aria-pressed="{{isList}}" onClick="{{showList}}" style="{{segList}}">Liste</button>
-        </div>
-      </div>
-
-      <sc-if value="{{isTiles}}" hint-placeholder-val="{{ true }}">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px;align-items:start">
-        <sc-for list="{{entities}}" as="e" hint-placeholder-count="5">
-        <div style="display:flex;flex-direction:column">
-          <div style="width:96px;height:26px;margin-left:18px;margin-bottom:-10px;border-radius:14px 14px 0 0;background:{{e.tab}};"></div>
-          <div style="position:relative;box-sizing:border-box;padding:24px 22px 22px;border-radius:26px;background:rgba(255,255,255,0.66);border:1px solid rgba(255,255,255,0.95);box-shadow:0 12px 32px rgba(123,63,228,0.10);display:flex;flex-direction:column;gap:14px">
-            <div style="display:flex;align-items:center;gap:12px">
-              <div style="flex:0 0 44px;width:44px;height:44px;border-radius:14px;background:#FFFFFF;border:1px solid rgba(19,17,28,0.08);box-shadow:0 4px 14px rgba(123,63,228,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden"><div role="img" aria-label="Logo {{e.name}}" style="{{e.logoStyle}}"></div></div>
-              <span style="font-size:16px;font-weight:700">{{e.name}}</span>
-            </div>
-            <div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap"><span style="font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-0.3px">{{e.amount}}</span><span style="font-size:13px;font-weight:500;color:#6B6488">/ mois</span></div>
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;font-weight:500;color:#6B6488">
-              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6488" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"></path><path d="m3 12 9 5 9-5"></path><path d="m3 17 9 5 9-5"></path></svg>
-              <span>{{e.countLabel}}</span>
-              <sc-if value="{{e.partial}}" hint-placeholder-val="{{ false }}"><span style="padding:3px 8px;border-radius:8px;background:#FFF1D6;color:#8A4B00;font-size:11px;font-weight:700">Total partiel</span></sc-if>
-            </div>
-            <div style="height:1px;background:rgba(42,32,80,0.08)"></div>
-            <a href="#" style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:{{accent}}">Ouvrir l'entité
-              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-          </div>
-        </div>
-        </sc-for>
-        <a href="#" style="box-sizing:border-box;min-height:170px;margin-top:16px;border-radius:26px;border:1.5px dashed {{accentDash}};background:rgba(255,255,255,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:700;color:{{accent}}">
-          <span style="width:44px;height:44px;border-radius:50%;background:rgba(19,17,28,0.08);display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span>
-          Ajouter une entité</a>
-      </div>
-      </sc-if>
-
-      <sc-if value="{{isList}}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <sc-for list="{{entities}}" as="e" hint-placeholder-count="5">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:16px 20px;border-radius:20px;background:rgba(255,255,255,0.62);border:1px solid rgba(255,255,255,0.95);box-shadow:0 8px 24px rgba(123,63,228,0.08)">
-          <div style="flex:0 0 44px;width:44px;height:44px;border-radius:14px;background:#FFFFFF;border:1px solid rgba(19,17,28,0.08);box-shadow:0 4px 14px rgba(123,63,228,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden"><div role="img" aria-label="Logo {{e.name}}" style="{{e.logoStyle}}"></div></div>
-          <span style="flex:1 1 140px;font-size:16px;font-weight:700">{{e.name}}</span>
-          <span style="font-size:13px;font-weight:500;color:#6B6488">{{e.countLabel}}</span>
-          <span style="font-size:18px;font-weight:800;font-variant-numeric:tabular-nums">{{e.amount}} <span style="font-size:13px;font-weight:500;color:#6B6488">/ mois</span></span>
-          <a href="#" style="font-size:13px;font-weight:700;color:{{accent}}">Ouvrir l'entité</a>
-        </div>
-        </sc-for>
-      </div>
-      </sc-if>
-
-    </section>
-
-    <!-- échéances -->
-    <aside style="flex:1 1 300px;max-width:340px;box-sizing:border-box;padding:24px;border-radius:28px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);display:flex;flex-direction:column;gap:18px">
-      <h2 style="margin:0;font-size:20px;font-weight:800">À ne pas manquer</h2>
-      <div style="align-self:flex-start;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:12px;background:#FFF1D6;color:#8A4B00;font-size:13px;font-weight:700">
-        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A4B00" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
-        3 échéances à suivre</div>
-      <sc-for list="{{events}}" as="ev" hint-placeholder-count="3">
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:0 0 54px;height:58px;border-radius:16px;background:rgba(19,17,28,0.08);color:{{accent}};display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1"><span style="font-size:20px;font-weight:800">{{ev.day}}</span><span style="font-size:11px;font-weight:700">{{ev.month}}</span></div>
-        <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
-          <span style="font-size:14px;font-weight:700">{{ev.title}}</span>
-          <span style="font-size:13px;font-weight:500">{{ev.subject}}</span>
-          <span style="font-size:12px;color:#6B6488">{{ev.entity}}</span>
-          <a href="#" style="font-size:13px;font-weight:700;color:{{accent}}">{{ev.action}} →</a>
-        </div>
-      </div>
-      </sc-for>
-      <a href="#" style="font-size:14px;font-weight:700;color:{{accent}}">Toutes les échéances →</a>
-    </aside>
-  </div>
-  <!-- coût des abonnements actifs -->
-  <section aria-labelledby="cost-title" style="position:relative;overflow:hidden;box-sizing:border-box;padding:28px;border-radius:28px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10)">
-    <div aria-hidden="true" style="position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(closest-side,{{accent2Glow}},{{accent2Glow}} 35%,rgba(255,255,255,0));pointer-events:none"></div>
-    <div style="position:relative;display:flex;flex-direction:column;gap:28px">
-      <div style="display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:space-between;align-items:flex-start">
-        <div style="display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 320px">
-          <h2 id="cost-title" style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.3px">Coût des abonnements actifs</h2>
-          <p style="margin:0;font-size:13px;color:#6B6488;max-width:560px">Au prix actuel, consolidé dans la devise comptable de la société avec le taux figé de chaque abonnement.</p>
-        </div>
-        <div data-dd="1" style="{{ddChart.wrapStyle}}">
-          <button type="button" aria-haspopup="listbox" aria-expanded="{{ddChart.open}}" aria-label="Société" onClick="{{ddChart.toggle}}" style="{{ddChart.btnStyle}}"><span style="font-size:12px;font-weight:700;color:#6B6488">Société</span><span style="flex:1 1 auto;text-align:left;font-size:14px;font-weight:700;color:#13111C">{{ddChart.label}}</span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="{{ddChart.chevron}}"><path d="m6 15 6-6 6 6"></path></svg></button>
-          <div role="listbox" aria-label="Société" style="{{ddChart.panelStyle}}">
-            <sc-for list="{{ddChart.options}}" as="o" hint-placeholder-count="5"><button type="button" role="option" aria-selected="{{o.selected}}" class="dd-opt" onClick="{{o.pick}}" style="{{o.style}}">{{o.label}}</button></sc-for>
-          </div>
-        </div>
-      </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:20px 48px">
-        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700;color:{{accent}}">Coût mensuel</span><span style="font-size:34px;font-weight:800;letter-spacing:-0.8px;font-variant-numeric:tabular-nums;background:linear-gradient(90deg,{{accent}},{{accent2}});-webkit-background-clip:text;background-clip:text;color:transparent">{{cMonthly}}</span></div>
-        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700;color:{{accent}}">Coût annuel <span style="font-weight:500;color:#6B6488">(mensuel × 12)</span></span><span style="font-size:34px;font-weight:800;letter-spacing:-0.8px;font-variant-numeric:tabular-nums">{{cYearly}}</span></div>
-        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700;color:{{accent}}">Abonnements actifs</span><span style="font-size:34px;font-weight:800;letter-spacing:-0.8px">{{cActive}}</span><span style="font-size:12px;color:#6B6488">Tous comptés</span></div>
-      </div>
-
-      <div style="padding-top: 28px; position: relative">
-        <div style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 20px;padding:0 4px 26px;font-size:12px;font-weight:500;color:#6B6488">
-          <span style="display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:22px;height:4px;border-radius:2px;background:linear-gradient(90deg,{{accent2}},{{accent}});box-shadow:0 0 10px {{accent2Glow}}"></span>Coût mensuel</span>
-          <span style="display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:22px;height:3px;border-radius:2px;background:{{accent2}};opacity:0.7"></span>Moyenne sur 3 mois</span>
-        </div>
-        <div style="display:flex;gap:12px">
-          <div aria-hidden="true" style="position:relative;flex:0 0 56px;height:232px">
-            <sc-for list="{{ticks}}" as="t" hint-placeholder-count="5">
-            <span style="position:absolute;right:0;top:{{t.top}}px;transform:translateY(-50%);font-size:11px;font-weight:500;color:#6B6488;font-variant-numeric:tabular-nums">{{t.label}}</span>
-            </sc-for>
-          </div>
-          <div style="position:relative;flex:1 1 0;min-width:0;height:232px">
-            <div aria-hidden="true" style="position:absolute;inset:-14px -10px 0 -10px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.12));border:1px solid rgba(255,255,255,0.9);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9)"></div>
-            <div aria-hidden="true" style="position:absolute;inset:0">
-              <sc-for list="{{ticks}}" as="t" hint-placeholder-count="5">
-              <div style="position:absolute;left:0;right:0;top:{{t.top}}px;border-top:1px dashed rgba(42,32,80,0.10)"></div>
-              </sc-for>
-            </div>
-            <svg aria-hidden="true" viewBox="0 0 1000 200" preserveAspectRatio="none" style="position:absolute;left:0;top:0;width:100%;height:200px;overflow:visible">
-              <defs>
-                <linearGradient id="cvStroke" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" stop-color="{{accent2}}"></stop><stop offset="0.5" stop-color="{{accent}}"></stop><stop offset="1" stop-color="{{accent2}}"></stop></linearGradient>
-                <linearGradient id="cvArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{{accent}}" stop-opacity="0.22"></stop><stop offset="1" stop-color="{{accent2}}" stop-opacity="0"></stop></linearGradient>
-                <filter id="cvGlow" x="-5%" y="-40%" width="110%" height="180%"><feGaussianBlur stdDeviation="6"></feGaussianBlur></filter>
-              </defs>
-              <path d="{{curve.area}}" fill="url(#cvArea)" stroke="none"></path>
-              <path d="{{curve.avg}}" fill="none" stroke="{{accent2}}" stroke-opacity="0.75" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
-              <path d="{{curve.line}}" fill="none" stroke="url(#cvStroke)" stroke-opacity="0.55" stroke-width="9" stroke-linecap="round" filter="url(#cvGlow)" vector-effect="non-scaling-stroke"></path>
-              <path d="{{curve.line}}" fill="none" stroke="url(#cvStroke)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
-            </svg>
-            <div role="group" aria-label="Coût mensuel sur 12 mois" style="position:absolute;inset:0;display:flex;gap:0">
-              <sc-for list="{{bars}}" as="b" hint-placeholder-count="12">
-              <button type="button" aria-label="{{b.aria}}" aria-pressed="{{b.isSel}}" onClick="{{b.pick}}" style="position:relative;flex:1 1 0;min-width:0;height:232px;padding:0;border:0;background:none;cursor:pointer;font-family:inherit">
-                <sc-if value="{{b.isSel}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="{{b.guideStyle}}"></span><span style="{{b.tipStyle}}">{{b.tip}}</span></sc-if>
-                <span aria-hidden="true" style="{{b.dotStyle}}"></span>
-                <span style="position:absolute;left:0;right:0;bottom:0;text-align:center;{{b.labelStyle}}">{{b.label}}</span>
-              </button>
-              </sc-for>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p style="margin:0;font-size:12px;color:#6B6488">Évolution sur 12 mois, depuis la saisie, au prix actuel ; résiliations antérieures au 07/10/2026 non datées.</p>
-    </div>
-  </section>
-
-  <!-- coût par département -->
-  <section aria-labelledby="dept-title" style="box-sizing:border-box;padding:28px;border-radius:28px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.9);box-shadow:0 12px 32px rgba(123,63,228,0.10);display:flex;flex-direction:column;gap:24px">
-    <div style="display:flex;flex-wrap:wrap;gap:16px 24px;justify-content:space-between;align-items:flex-start">
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 320px">
-        <h2 id="dept-title" style="margin:0;font-size:22px;font-weight:800;letter-spacing:-0.3px">Coût par département</h2>
-        <p style="margin:0;font-size:13px;color:#6B6488">Du 01/11/2026 au 30/11/2026 — 1 mois, un coût mensuel par mois couvert, au prix actuel.</p>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:10px">
-        <div data-dd="1" style="{{ddTable.wrapStyle}}">
-          <button type="button" aria-haspopup="listbox" aria-expanded="{{ddTable.open}}" aria-label="Société" onClick="{{ddTable.toggle}}" style="{{ddTable.btnStyle}}"><span style="flex:1 1 auto;text-align:left;font-size:14px;font-weight:700;color:#13111C">{{ddTable.label}}</span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{accent}}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="{{ddTable.chevron}}"><path d="m6 15 6-6 6 6"></path></svg></button>
-          <div role="listbox" aria-label="Société" style="{{ddTable.panelStyle}}">
-            <sc-for list="{{ddTable.options}}" as="o" hint-placeholder-count="5"><button type="button" role="option" aria-selected="{{o.selected}}" class="dd-opt" onClick="{{o.pick}}" style="{{o.style}}">{{o.label}}</button></sc-for>
-          </div>
-        </div>
-        <span style="display:flex;align-items:center;padding:11px 16px;border-radius:14px;background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.95);box-shadow:0 4px 14px rgba(123,63,228,0.06);font-size:13px;font-weight:700;color:#13111C">Mois en cours</span>
-        <button type="button" style="display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:14px;background:{{accent}};border:0;box-shadow:0 10px 24px -6px {{accentShadow}};font-size:13px;font-weight:700;color:#FFFFFF;cursor:pointer">
-          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"></path></svg>
-          Exporter en PDF</button>
-      </div>
-    </div>
-    <div style="overflow-x:auto">
-      <div role="table" aria-label="Coût par département" style="min-width:680px;display:flex;flex-direction:column;gap:8px">
-        <div role="row" style="display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(180px,1.7fr) 100px minmax(220px,1.5fr);gap:16px;padding:0 20px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B6488">
-          <span role="columnheader">Société</span><span role="columnheader">Département</span><span role="columnheader" style="text-align:right">Abonnements</span><span role="columnheader" style="text-align:right">Coût sur la période</span>
-        </div>
-        <sc-for list="{{tableRows}}" as="r" hint-placeholder-count="16">
-        <div role="row" style="display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(180px,1.7fr) 100px minmax(220px,1.5fr);gap:16px;align-items:center;padding:14px 20px;border-radius:18px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.9);font-size:14px">
-          <span role="cell" style="font-weight:500;color:#6B6488">{{r.soc}}</span>
-          <span role="cell" style="font-weight:700">{{r.dept}}</span>
-          <span role="cell" style="text-align:right;font-weight:500;font-variant-numeric:tabular-nums">{{r.subs}}</span>
-          <div role="cell" style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-            <span style="font-weight:800;font-variant-numeric:tabular-nums">{{r.cost}}<sc-if value="{{r.hasNote}}" hint-placeholder-val="{{ false }}"><span style="margin-left:8px;font-size:11px;font-weight:700;color:#8A4B00">({{r.note}})</span></sc-if></span>
-            <div aria-hidden="true" style="width:160px;max-width:100%;height:5px;border-radius:3px;background:{{accentSoft}}"><div style="height:100%;width:{{r.barW}};border-radius:3px;background:linear-gradient(90deg,{{accent2}},{{accent}})"></div></div>
-          </div>
-        </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- MAIN -->
-
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#7B3FE4","options":["#7B3FE4","#0E7C86","#C2410C","#1D4ED8"]},"accent2":{"editor":"color","default":"#35D3F2"},"accent3":{"editor":"color","default":"#35F0C0"},"$preview":{"width":1440,"height":960}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { view: 'tiles', filter: 'all', chartEntity: 'Avaliance France', sel: 11, tableSoc: 'all', tipPartial: false, openMenu: 'abo', canL: false, canR: true, navFade: false, collapsed: false, openDd: '' }; }
+  constructor(props) { super(props); this.state = { details: {}, view: 'tiles', filter: 'all', chartEntity: 'Avaliance France', sel: 11, tableSoc: 'all', tipPartial: false, openMenu: 'abo', canL: false, canR: true, navFade: false, collapsed: false, openDd: '' }; }
   rgba(hex, a) {
     const h = (hex || '#000000').replace('#', '');
     const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16);
@@ -426,11 +92,11 @@ class Component extends DCLogic {
       { k: 'dash', href: PAGES.dash, label: 'Tableau de bord', ic: ['M5 3h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z', 'M15 3h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z', 'M5 13h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z', 'M15 13h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z'] },
       { k: 'abo', label: 'Abonnements', ic: ['M6 3h12l2 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z', 'M4 7h16', 'M9 11a3 3 0 0 0 6 0'], kids: [
         ['Abonnements', ['M6 3h12l2 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z', 'M4 7h16', 'M9 11a3 3 0 0 0 6 0'], PAGES.subs, 'subs'],
-        ['Renouvellements', ['M12 3 2 20h20Z', 'M12 9v5', 'M12 17h.01']],
-        ['Demandes d’abonnement', ['M3 17h4l5 2 7-3a2 2 0 0 0-2-3.5l-4 1', 'M7 17v-6', 'M15 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z']],
-        ['Calendrier de facturation', ['M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z', 'M8 3v4M16 3v4M3 10h18', 'M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01']],
-        ['Décisions sur renouvellement', ['M9 3h6v3H9Z', 'M7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1', 'm9 14 2 2 4-4']],
-        ['Doublons potentiels', ['M9 9h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z', 'M15 9V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2']]
+        ['Paiements', ['M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z', 'M3 10h18', 'M7 15h4']],
+        ['Demandes', ['M3 17h4l5 2 7-3a2 2 0 0 0-2-3.5l-4 1', 'M7 17v-6', 'M15 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z']],
+        ['Calendrier', ['M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z', 'M8 3v4M16 3v4M3 10h18', 'M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01']],
+        ['Validations', ['M9 3h6v3H9Z', 'M7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1', 'm9 14 2 2 4-4']],
+        ['Doublons', ['M9 9h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z', 'M15 9V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2']]
       ] },
       { k: 'con', label: 'Contrats', ic: ['M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z', 'M14 3v5h5', 'M10 13a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z', 'm13.5 14.5 1.5 1.5'], kids: [
         ['Recherche dans les contrats', ['M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z', 'M14 3v5h5', 'M10 13a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z', 'm13.5 14.5 1.5 1.5']]
@@ -490,17 +156,18 @@ class Component extends DCLogic {
     const on = 'padding:8px 16px;border:0;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;background:' + accent + ';color:#FFFFFF';
     const off = 'padding:8px 16px;border:0;border-radius:12px;font-size:13px;font-weight:500;cursor:pointer;background:transparent;color:#6B6488';
     const D = [
-      { name: 'Avaliance Maroc', subs: 16, exp: 1, cost: '19 401,01 MAD', partial: false },
-      { name: 'Avaliance France', subs: 1, exp: 0, cost: '83,33 €', partial: false },
-      { name: 'Docdialy', subs: 12, exp: 1, cost: '1 735,90 MAD', partial: true },
-      { name: 'Hightech', subs: 11, exp: 1, cost: '540,90 MAD', partial: true },
-      { name: 'Shifaa', subs: 11, exp: 1, cost: '14 006,68 MAD', partial: false }
+      { name: 'Avaliance Maroc', pre: 2, subs: 16, exp: 1, cost: '19 401,01 MAD', partial: false },
+      { name: 'Avaliance France', pre: 0, subs: 1, exp: 0, cost: '83,33 €', partial: false },
+      { name: 'Docdialy', pre: 0, subs: 12, exp: 1, cost: '1 735,90 MAD', partial: true },
+      { name: 'Hightech', pre: 1, subs: 11, exp: 1, cost: '540,90 MAD', partial: true },
+      { name: 'Shifaa', pre: 1, subs: 11, exp: 1, cost: '14 006,68 MAD', partial: false }
     ];
     const cur = this.state.filter;
     const sel = cur === 'all' ? null : D.find((d) => d.name === cur);
     const kSubs = sel ? sel.subs : 51;
     const kExp = sel ? sel.exp : 4;
-    const kEnt = sel ? 1 : 5;
+    const kPre = sel ? sel.pre : 4;
+    const kActive = kSubs - kPre - kExp;
     const chipOn = 'display:flex;align-items:center;gap:8px;flex:0 0 auto;padding:9px 14px 9px 16px;border-radius:14px;border:1px solid ' + accent + ';background:' + accent + ';color:#FFFFFF;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap';
     const chipOff = 'display:flex;align-items:center;gap:8px;flex:0 0 auto;padding:9px 14px 9px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.95);background:rgba(255,255,255,0.7);box-shadow:0 4px 14px rgba(123,63,228,0.06);color:#13111C;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap';
     const badgeOn = 'min-width:20px;padding:2px 7px;border-radius:8px;background:rgba(255,255,255,0.85);color:#13111C;font-size:11px;font-weight:700;text-align:center';
@@ -554,7 +221,7 @@ class Component extends DCLogic {
       area: lineD + ' L' + px(cvals.length - 1).toFixed(1) + ' ' + PH + ' L' + px(0).toFixed(1) + ' ' + PH + ' Z'
     };
     const bars = cvals.map((v, i) => {
-      const isSel = i === selIdx;
+      const isSel = false; // sélection du mois désactivée
       const bottom = 32 + Math.round(v / niceMax * PH);
       const dotStyle = isSel
         ? 'position:absolute;left:50%;bottom:' + bottom + 'px;width:16px;height:16px;margin:0 0 -8px -8px;box-sizing:border-box;border-radius:50%;background:#FFFFFF;border:3px solid ' + accent + ';box-shadow:0 0 0 6px ' + this.rgba(accent, 0.18) + ',0 0 24px 6px ' + this.rgba(a2, 0.7)
@@ -610,12 +277,31 @@ class Component extends DCLogic {
       };
     };
     const SOC = ['Avaliance France', 'Avaliance Maroc', 'Docdialy', 'Hightech', 'Shifaa'];
-    const mk = (name, initial, amount, n, partial, c, o) => ({
+    const INFO = {
+      'Avaliance Maroc': { geo: 'Maroc · 6 départements', pre: 2, exp: 1, excl: 0, cur: ['19 401,01 MAD / mois'] },
+      'Avaliance France': { geo: 'France · 1 département', pre: 0, exp: 0, excl: 0, cur: ['83,33 € / mois'] },
+      'Docdialy': { geo: 'Maroc · 3 départements', pre: 0, exp: 1, excl: 7, cur: ['854,50 € / mois', '1 735,90 MAD / mois', '89,99 $US / mois'] },
+      'Hightech': { geo: 'Maroc · 3 départements', pre: 1, exp: 1, excl: 7, cur: ['540,90 MAD / mois', '49,00 $US / mois'] },
+      'Shifaa': { geo: 'Maroc · 4 départements', pre: 1, exp: 1, excl: 0, cur: ['14 006,68 MAD / mois'] }
+    };
+    const mk = (name, initial, amount, n, partial, c, o) => {
+      const I = INFO[name] || { geo: '', pre: 0, exp: 0, excl: 0, cur: [] };
+      const open = !!(this.state.details && this.state.details[name]);
+      return {
       name, initial, amount, partial,
+      geo: I.geo, total: n, pre: I.pre, exp: I.exp,
+      expStyle: 'font-size:24px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;color:' + (I.exp > 0 ? '#C2255C' : '#13111C'),
+      partialNote: 'Total partiel — ' + I.excl + (I.excl > 1 ? ' abonnements exclus' : ' abonnement exclu') + ' (taux de change introuvable).',
+      currencies: I.cur.map((label) => ({ label })),
+      detailOpen: String(open),
+      toggle: () => this.setState({ details: Object.assign({}, this.state.details, { [name]: !open }) }),
+      chevron: 'flex:0 0 auto;transition:transform .35s cubic-bezier(.22,.9,.28,1);transform:rotate(' + (open ? 180 : 0) + 'deg)',
+      detailWrap: 'display:grid;grid-template-rows:' + (open ? '1fr' : '0fr') + ';transition:grid-template-rows .35s cubic-bezier(.22,.9,.28,1);',
       logoStyle: 'width:36px;height:36px;background:url("' + ({ 'Avaliance Maroc': LOGO_AV, 'Avaliance France': LOGO_AV, 'Docdialy': LOGO_DO, 'Hightech': LOGO_HT, 'Shifaa': LOGO_SH })[name] + '") center/contain no-repeat',
       countLabel: n + (n > 1 ? ' abonnements' : ' abonnement'),
       tab: this.rgba(c, o)
-    });
+      };
+    };
     return {
       accent,
       accentSoft: this.rgba(accent, 0.12),
@@ -668,9 +354,10 @@ class Component extends DCLogic {
       ddTable: mkDd('table', this.state.tableSoc, [{ value: 'all', label: 'Toutes les sociétés' }].concat(SOC.map((n) => ({ value: n, label: n }))), (v) => this.setState({ tableSoc: v }), 230),
       tableRows,
       filters,
-      kSubs, kExp, kEnt,
+      kSubs, kExp, kPre, kActive,
       kSubsLabel: kSubs > 1 ? 'abonnements' : 'abonnement',
-      kEntLabel: kEnt > 1 ? 'entités' : 'entité',
+      kActiveLabel: kActive > 1 ? 'actifs' : 'actif',
+      kPreLabel: 'en préavis',
       kExpLabel: kExp > 1 ? 'expirés' : 'expiré',
       kExpColor: kExp > 0 ? '#C2255C' : '#13111C',
       kCost: sel ? sel.cost : '35 684,49 MAD + 83,33 €',
@@ -691,6 +378,68 @@ class Component extends DCLogic {
     };
   }
 }
+
+
+(function () {
+  var tplHTML = TEMPLATE;
+  var tpl = document.createElement('template');
+  tpl.innerHTML = tplHTML;
+  var root = document.getElementById('app');
+  var comp = new Component(PROPS);
+  function look(path, scope) {
+    var parts = path.trim().split('.'); var v = scope[parts[0]];
+    for (var i = 1; i < parts.length && v != null; i++) v = v[parts[i]];
+    return v;
+  }
+  var HOLE = /\{\{\s*([^}]+?)\s*\}\}/g, WHOLE = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/;
+  function text(str, scope) { return str.replace(HOLE, function (_, e) { var v = look(e, scope); return v == null ? '' : String(v); }); }
+  function build(node, scope, parent) {
+    if (node.nodeType === 3) { parent.appendChild(document.createTextNode(text(node.nodeValue, scope))); return; }
+    if (node.nodeType !== 1) return;
+    var tag = node.tagName.toLowerCase();
+    if (tag === 'sc-for') {
+      var list = look(WHOLE.exec(node.getAttribute('list'))[1], scope) || [];
+      var as = node.getAttribute('as');
+      list.forEach(function (item) { var s = Object.create(scope); s[as] = item; kids(node, s, parent); });
+      return;
+    }
+    if (tag === 'sc-if') {
+      var m = WHOLE.exec(node.getAttribute('value')); var ok = m ? look(m[1], scope) : node.getAttribute('value');
+      if (ok) kids(node, scope, parent);
+      return;
+    }
+    var el = document.createElementNS(node.namespaceURI, node.localName);
+    Array.prototype.forEach.call(node.attributes, function (a) {
+      var n = a.name;
+      if (n.indexOf('hint-') === 0) return;
+      var w = WHOLE.exec(a.value);
+      if (/^on/.test(n)) { var fn = w ? look(w[1], scope) : null; if (typeof fn === 'function') el.addEventListener(n.slice(2).toLowerCase(), fn); return; }
+      var v = w ? look(w[1], scope) : (HOLE.lastIndex = 0, text(a.value, scope));
+      if (v === undefined || v === null) return;
+      if (typeof v === 'boolean' && !/^(aria|data)-/.test(n)) { if (v) el.setAttribute(n, ''); return; }
+      el.setAttribute(n, String(v));
+    });
+    kids(node, scope, el);
+    if (tag === 'select') { var sv = node.getAttribute('value'); var sw = sv && WHOLE.exec(sv); if (sw) el.value = look(sw[1], scope); }
+    parent.appendChild(el);
+  }
+  function kids(node, scope, parent) { Array.prototype.forEach.call(node.childNodes, function (c) { build(c, scope, parent); }); }
+  window.__render = function () {
+    var y = window.scrollY;
+    var sv = {}; ['filter-scroll','subs-scroll'].forEach(function (id) { var e = document.getElementById(id); if (e) sv[id] = e.scrollLeft; });
+    var focusId = document.activeElement && document.activeElement.id;
+    var vals = comp.renderVals();
+    var frag = document.createDocumentFragment();
+    kids(tpl.content, vals, frag);
+    root.replaceChildren(frag);
+    Object.keys(sv).forEach(function (id) { var e = document.getElementById(id); if (e) { var b = e.style.scrollBehavior; e.style.scrollBehavior = 'auto'; e.scrollLeft = sv[id]; e.style.scrollBehavior = b; } });
+    window.scrollTo(0, y);
+    if (focusId) { var f = document.getElementById(focusId); if (f) f.focus(); }
+  };
+  window.__render();
+  if (comp.componentDidMount) comp.componentDidMount();
+})();
+
 </script>
 </body>
 </html>
