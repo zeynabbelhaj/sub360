@@ -280,7 +280,7 @@ class Component extends DCLogic {
     root.replaceChildren(frag);
     Object.keys(sv).forEach(function (id) { var e = document.getElementById(id); if (e) { var b = e.style.scrollBehavior; e.style.scrollBehavior = 'auto'; e.scrollLeft = sv[id]; e.style.scrollBehavior = b; } });
     window.scrollTo(0, y);
-    if (focusId) { var f = document.getElementById(focusId); if (f) f.focus(); }
+    if (focusId) { var f = document.getElementById(focusId); if (f) { f.focus(); try { if (f.setSelectionRange && /^(text|search)$/.test(f.type)) f.setSelectionRange(f.value.length, f.value.length); } catch (e) {} } }
   };
   window.__render();
   if (comp.componentDidMount) comp.componentDidMount();
