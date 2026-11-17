@@ -212,7 +212,7 @@ class Component extends DCLogic {
     try { localStorage.setItem('sub360-theme', JSON.stringify({ c1: this.state.c1, c2: this.state.c2, bgMode: this.state.bgMode, tabMode: this.state.tabMode })); } catch (e) {}
     const collapsed = !!this.state.collapsed;
 
-    const PAGES = { dash: 'index.html', subs: 'abonnements.html' };
+    const PAGES = { dash: 'index.html', subs: 'abonnements.html', ech: 'echeances.html', dem: 'demandes.html' };
     // la navigation n'a lieu que sur le site déployé (page de premier niveau), pas dans l'aperçu du canvas
     const go = (href) => { try { if (window.top === window.self) window.location.href = href; } catch (x) {} };
     const CURRENT = 'dash';
@@ -220,8 +220,8 @@ class Component extends DCLogic {
       { k: 'dash', href: PAGES.dash, label: 'Tableau de bord', ic: ['M5 3h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z', 'M15 3h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z', 'M5 13h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z', 'M15 13h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z'] },
       { k: 'abo', label: 'Abonnements', ic: ['M6 3h12l2 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z', 'M4 7h16', 'M9 11a3 3 0 0 0 6 0'], kids: [
         ['Abonnements', ['M6 3h12l2 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z', 'M4 7h16', 'M9 11a3 3 0 0 0 6 0'], PAGES.subs, 'subs'],
-        ['Échéances', ['M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z', 'M12 7v5l3 2']],
-        ['Demandes', ['M3 17h4l5 2 7-3a2 2 0 0 0-2-3.5l-4 1', 'M7 17v-6', 'M15 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z']],
+        ['Échéances', ['M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z', 'M12 7v5l3 2'], PAGES.ech, 'ech'],
+        ['Demandes', ['M3 17h4l5 2 7-3a2 2 0 0 0-2-3.5l-4 1', 'M7 17v-6', 'M15 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z'], PAGES.dem, 'dem'],
         ['Calendrier', ['M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z', 'M8 3v4M16 3v4M3 10h18', 'M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01']],
         ['Validations', ['M9 3h6v3H9Z', 'M7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1', 'm9 14 2 2 4-4']],
         ['Doublons', ['M9 9h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z', 'M15 9V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2']]
