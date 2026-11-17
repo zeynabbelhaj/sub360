@@ -283,8 +283,8 @@ class Component extends DCLogic {
     const a2 = this.state.c2 || this.props.accent2 || '#3ADAFD';
     const a3 = this.props.accent3 ?? '#35F0C0';
     const isTiles = this.state.view === 'tiles';
-    const segBase = 'padding:8px 16px;border-radius:12px;font-size:13px;cursor:pointer;border:1.5px solid ';
-    const on = solid ? segBase + accent + ';font-weight:700;background:#FFFFFF;color:#13111C;box-shadow:0 4px 12px rgba(19,17,28,0.08)' : segBase + 'transparent;font-weight:700;background:' + accent + ';color:' + onAccent;
+    const segBase = 'padding:8px 16px;border-radius:12px;font-size:13px;cursor:pointer;border:1px solid ';
+    const on = solid ? segBase + this.rgba(accent, 0.6) + ';font-weight:700;background:#FFFFFF;color:#13111C;box-shadow:0 4px 12px rgba(19,17,28,0.08)' : segBase + 'transparent;font-weight:700;background:' + accent + ';color:' + onAccent;
     const off = segBase + 'transparent;font-weight:500;background:transparent;color:#6B6488';
     const D = [
       { name: 'Avaliance Maroc', pre: 2, subs: 16, exp: 1, cost: '19 401,01 MAD', partial: false },

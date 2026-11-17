@@ -227,8 +227,8 @@ class Component extends DCLogic {
       imgErr: (ev) => { try { ev.target.style.display = 'none'; } catch (e) {} },
       stStyle: d[6] === 'Approuvée' ? ok : (pend(d) ? warn : muted)
     }));
-    const segOn = 'padding:9px 18px;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid ' + ctaBg + ';background:' + ctaBg + ';color:' + onAccent + ';box-shadow:0 8px 20px -6px rgba(var(--sh-rgb),0.35)';
-    const segOff = 'padding:9px 18px;border-radius:12px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1.5px solid ' + accent + ';background:#FFFFFF;color:#13111C';
+    const segOn = 'box-sizing:border-box;height:46px;padding:0 22px;border-radius:16px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid ' + ctaBg + ';background:' + ctaBg + ';color:' + onAccent + ';box-shadow:0 8px 20px -6px rgba(var(--sh-rgb),0.35)';
+    const segOff = 'box-sizing:border-box;height:46px;padding:0 22px;border-radius:16px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid ' + this.rgba(accent, 0.6) + ';background:#FFFFFF;color:#13111C';
     return {
       accent,
       accentSoft: this.rgba(accent, 0.12),
