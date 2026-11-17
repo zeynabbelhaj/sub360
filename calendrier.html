@@ -257,13 +257,13 @@ class Component extends DCLogic {
         day: dt.getDate(),
         aria: dt.getDate() + ' ' + MONTHS[dt.getMonth()] + ' ' + dt.getFullYear() + ' : ' + (list.length ? list.length + (list.length > 1 ? ' échéances' : ' échéance') : 'aucune échéance'),
         open: () => this.setState({ day: key, pm: dt.getFullYear() * 12 + dt.getMonth() }),
-        style: 'box-sizing:border-box;min-height:118px;min-width:0;padding:10px;border-radius:18px;display:flex;flex-direction:column;align-items:stretch;gap:6px;text-align:left;font-family:inherit;color:inherit;cursor:pointer;position:relative;background:' + (inM ? 'rgba(255,255,255,0.66)' : 'rgba(255,255,255,0.28)') + ';border:' + (isToday ? '1.5px solid ' + accent : '1px solid rgba(255,255,255,0.95)') + ';box-shadow:' + (inM ? '0 6px 18px rgba(var(--sh-rgb),0.07)' : 'none'),
-        num: isToday ? 'align-self:flex-start;min-width:26px;height:26px;padding:0 6px;box-sizing:border-box;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;background:' + accent + ';color:' + onAccent : 'align-self:flex-start;height:26px;display:inline-flex;align-items:center;padding:0 4px;font-size:13px;font-weight:' + (inM ? '700' : '500') + ';color:' + (inM ? '#13111C' : '#A9A4BC'),
-        chips: list.slice(0, 3).map((e) => ({
+        style: 'box-sizing:border-box;height:140px;overflow:visible;min-width:0;padding:10px;border-radius:18px;display:flex;flex-direction:column;align-items:stretch;gap:6px;text-align:left;font-family:inherit;color:inherit;cursor:pointer;position:relative;background:' + (inM ? 'rgba(255,255,255,0.66)' : 'rgba(255,255,255,0.28)') + ';border:' + (isToday ? '0.5px solid ' + this.rgba(accent, 0.45) : '1px solid ' + (inM ? 'rgba(19,17,28,0.08)' : 'rgba(19,17,28,0.05)')) + ';box-shadow:' + (inM ? '0 6px 18px rgba(var(--sh-rgb),0.05)' : 'none'),
+        num: 'align-self:flex-start;height:26px;display:inline-flex;align-items:center;padding:0 4px;font-size:15px;font-weight:' + (isToday ? '600' : inM ? '500' : '400') + ';letter-spacing:-0.2px;color:' + (isToday ? accent : (inM ? '#13111C' : '#A9A4BC')),        
+        chips: list.slice(0, list.length > 2 ? 2 : list.length).map((e) => ({
           title: TYPES[e[1]] + ' · ' + e[2], label: TYPES[e[1]] + ' · ' + e[2], style: chipStyle(e[1]), dot: dotStyle(e[1]),
           tipStyle: 'position:absolute;z-index:70;bottom:calc(100% + 8px);width:max-content;max-width:260px;box-sizing:border-box;padding:9px 12px;border-radius:12px;font-size:12.5px;font-weight:600;line-height:1.4;color:#13111C;background:rgba(255,255,255,0.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.95);box-shadow:0 14px 32px rgba(var(--sh-rgb),0.20),0 2px 8px rgba(var(--sh-rgb),0.08);white-space:normal;' + (col >= 5 ? 'right:0;' : col <= 1 ? 'left:0;' : 'left:50%;margin-left:-130px;')
         })),
-        hasMore: list.length > 3, more: '+' + (list.length - 3) + ' autres'
+        hasMore: list.length > 2, more: '+' + (list.length - 2) + (list.length - 2 > 1 ? ' autres' : ' autre')
       };
     });
     const agenda = [];
