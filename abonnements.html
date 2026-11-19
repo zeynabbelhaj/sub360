@@ -101,7 +101,7 @@ class Component extends DCLogic {
     const accentRgb = ((n) => ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255))(parseInt(accent.replace('#', ''), 16));
     const collapsed = !!this.state.collapsed;
     const a2 = TH.c2 || this.props.accent2 || '#3ADAFD';
-    const PAGES = { dash: 'index.html', subs: 'abonnements.html', ech: 'echeances.html', dem: 'demandes.html', cal: 'calendrier.html', val: 'validations.html', dbl: 'doublons.html' };
+    const PAGES = { dash: 'index.html', subs: 'abonnements.html', ech: 'echeances.html', dem: 'demandes.html', cal: 'calendrier.html', val: 'validations.html', dbl: 'doublons.html', col: 'collaborateurs.html' };
     // la navigation n'a lieu que sur le site déployé (page de premier niveau), pas dans l'aperçu du canvas
     const go = (href) => { try { if (window.top === window.self) window.location.href = href; } catch (x) {} };
     const CURRENT = 'subs';
@@ -125,6 +125,7 @@ class Component extends DCLogic {
       { k: 'ent', label: 'Entités', ic: ['M4 21V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v15', 'M16 10h2a2 2 0 0 1 2 2v9', 'M2 21h20', 'M8 8h4M8 12h4M8 16h4'], kids: [
         ['Entités', ['M4 21V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v15', 'M16 10h2a2 2 0 0 1 2 2v9', 'M2 21h20', 'M8 8h4M8 12h4M8 16h4']],
         ['Départements', ['M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z', 'M2 20a7 7 0 0 1 14 0', 'M16 4a3.5 3.5 0 0 1 0 7M18 14a7 7 0 0 1 4 6']],
+        ['Collaborateurs', ['M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z', 'M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1'], PAGES.col, 'col'],
         ['Budgets', ['M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z', 'M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z', 'M6 12h.01M18 12h.01']]
       ] },
       { k: 'adm', label: 'Administration', ic: ['M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12', 'M16 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z', 'M10 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z', 'M18 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z'], kids: [
